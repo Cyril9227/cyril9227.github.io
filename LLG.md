@@ -3,11 +3,14 @@ layout: default
 title: Math Articles
 ---
 
-# Mes solutions aux problèmes du fameux ["PDF LLG"](https://www.louislegrand.fr/wp-content/uploads/2022/01/EXOS-TERMINALE3-3-AVECDESSIN.pdf)
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+# Mes solutions aux problèmes du ["PDF LLG"](https://www.louislegrand.fr/wp-content/uploads/2022/01/EXOS-TERMINALE3-3-AVECDESSIN.pdf)
 
 ## Introduction
 
-Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les poster ici. J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé officiel et de faire le lien, avec d'autres notions ou problèmes. 
+Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les poster ici. J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé officiel et de faire le lien avec d'autres notions ou problèmes. 
 
 ## Liste des problèmes
 
