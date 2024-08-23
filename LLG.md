@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Math Articles
+title: LLG
 ---
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
@@ -34,7 +34,7 @@ On lance un dé non pipé. On répète $n$ fois l'opération, les lancers succes
 
 <details>
  <summary>Solution</summary>
-On peut considerer l'evenement contraire $\overline{A_{k}}\$ : "ne pas obtenir 6 lors du kieme lancer" dont la probabilite est $P(\overline{A_{k}}\)$ </span>
+On peut considerer l'evenement contraire $\overline{A_{k}}\$ : "ne pas obtenir 6 lors du kieme lancer" dont la probabilite est $P(\overline{A_{k}}\)$
 </details>
 
 ## Problème 2
