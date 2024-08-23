@@ -3,5 +3,30 @@ layout: default
 title: Math Articles
 ---
 
-# Mes solutions (bien moches) aux problèmes du fameux "PDF LLG"
+# Mes solutions aux problèmes du fameux ["PDF LLG"](https://www.louislegrand.fr/wp-content/uploads/2022/01/EXOS-TERMINALE3-3-AVECDESSIN.pdf)
 
+## Introduction
+
+Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les poster ici. J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé officiel et de faire le lien, avec d'autres notions ou problèmes. 
+
+## Liste des problèmes
+
+1. [Problème 1](#probleme-1)
+2. [Problème 2](#probleme-2)
+3. [Problème 3](#probleme-3)
+
+## Exercice 266 (Tout ce qui est possible finit par arriver)
+
+On lance un dé non pipé. On répète \( n \) fois l’opération, les lancers successifs étant supposés indépendants. Quelle est la probabilité \( p_n \) pour que l’on obtienne au moins un 6 ? Déterminez la limite de \( (p_n)_{n \geq 1} \).
+
+
+
+[Détails et solution du problème 1]
+
+## Problème 2
+
+[Détails et solution du problème 2]
+
+## Problème 3
+
+[Détails et solution du problème 3]
