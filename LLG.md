@@ -17,8 +17,7 @@ Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les
 
 ## Exercice 266 (Tout ce qui est possible finit par arriver)
 
-On lance un dé non pipé. On répète \( n \) fois l’opération, les lancers successifs étant supposés indépendants. Quelle est la probabilité \( p_n \) pour que l’on obtienne au moins un 6 ? Déterminez la limite de \( (p_n)_{n \geq 1} \).
-
+On lance un dé non pipé. On répète $n$ fois l'opération, les lancers successifs étant supposés indépendants. Quelle est la probabilité $p_n$ pour que l'on obtienne au moins un 6 ? Déterminez la limite de $(p_n)_{n \geq 1}$.
 
 
 [Détails et solution du problème 1]
