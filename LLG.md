@@ -32,11 +32,11 @@ Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les
 On lance un dé non pipé. On répète $n$ fois l'opération, les lancers successifs étant supposés indépendants. Quelle est la probabilité $p_n$ pour que l'on obtienne au moins un 6 ? Déterminez la limite de $(p_n)_{n \geq 1}$.
 
 <details>
- <summary><strong>Solution</strong></summary>
-On peut considérer l'événement contraire $\overline{A_{k}}$ : "ne pas obtenir 6 lors du k-ième lancer" dont la probabilité est $P(\overline{A_{k}}) = \dfrac{5}{6}$
+ <summary><strong>💡 Solution</strong></summary>
+On peut considérer l'événement contraire $\overline{A_{k}}$ : "ne pas obtenir 6 lors du k-ième lancer" dont la probabilité est $P(\overline{A_{k}}) = \dfrac{5}{6}$<br>
 
 
-N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \cap_{k=1}^{n} \overline{A_{k}}$ dont la probabilité est, par indépendance des $\overline{A_{k}}$, $P(\overline{A}) = \prod_{k=1}^{n} P(\overline{A_{k}}) = \left(\dfrac{5}{6}\right)^n$
+N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \cap_{k=1}^{n} \overline{A_{k}}$ dont la probabilité est, par indépendance des $\overline{A_{k}}$, $P(\overline{A}) = \prod_{k=1}^{n} P(\overline{A_{k}}) = \left(\dfrac{5}{6}\right)^n$<br>
 
 
 La probabilité de l'événement contraire $A$ : "obtenir au moins un 6 lors des $n$ lancers" est donc $p_n = 1 - P(\overline{A}) = 1 - \left(\dfrac{5}{6}\right)^n$, et la limite de $(p_n)_{n \geq 1}$ est donc 1 (car $\left(\dfrac{5}{6}\right)^n \to 0$). Tout ce qui est possible finit par arriver !
@@ -44,5 +44,5 @@ La probabilité de l'événement contraire $A$ : "obtenir au moins un 6 lors des
 
 ### Ce que j'ai appris ? 
 
-Et voilà, c'était pas bien compliqué. On retiendra que "au moins" = "complémentaire de aucun", passer au complémentaire est souvent un bon réflexe quand on voit ce mot-clé.
+Et voilà, c'était pas bien compliqué. On retiendra que passer au complémentaire est souvent un bon réflexe quand on voit le mot-clé "au moins".
 
