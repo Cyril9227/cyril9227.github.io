@@ -19,8 +19,10 @@ Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les
 
 On lance un dé non pipé. On répète $n$ fois l'opération, les lancers successifs étant supposés indépendants. Quelle est la probabilité $p_n$ pour que l'on obtienne au moins un 6 ? Déterminez la limite de $(p_n)_{n \geq 1}$.
 
-<span class="spoiler">On peut considerer l'evenement contraire $\overline{A_{k}}\$ : "ne pas obtenir 6 lors du kieme lancer" dont la probabilite est $P(\overline{A_{k}}\)$ </span>
-
+<details>
+ <summary>Solution</summary>
+On peut considerer l'evenement contraire $\overline{A_{k}}\$ : "ne pas obtenir 6 lors du kieme lancer" dont la probabilite est $P(\overline{A_{k}}\)$ </span>
+</details>
 
 ## Problème 2
 
