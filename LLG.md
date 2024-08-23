@@ -39,7 +39,7 @@ On peut considérer l'événement contraire $\overline{A_{k}}$ : "ne pas obtenir
 N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \cap_{k=1}^{n} \overline{A_{k}}$ dont la probabilité est, par indépendance des $\overline{A_{k}}$, $P(\overline{A}) = \prod_{k=1}^{n} P(\overline{A_{k}}) = \left(\dfrac{5}{6}\right)^n$<br>
 
 
-La probabilité de l'événement contraire $A$ : "obtenir au moins un 6 lors des $n$ lancers" est donc $p_n = 1 - P(\overline{A}) = 1 - \left(\dfrac{5}{6}\right)^n$, et la limite de $(p_n)_{n \geq 1}$ est donc 1 (car $\left(\dfrac{5}{6}\right)^n \to 0$).<br>
+Finalement, la probabilité de l'événement qui nous intéresse $A$ : "obtenir au moins un 6 lors des $n$ lancers" est $p_n = 1 - P(\overline{A}) = 1 - \left(\dfrac{5}{6}\right)^n$, et la limite de $(p_n)_{n \geq 1}$ est donc $1$ (car $\left(\dfrac{5}{6}\right)^n \to 0$).<br>
 Tout ce qui est possible finit par arriver !!!
 </details>
 
