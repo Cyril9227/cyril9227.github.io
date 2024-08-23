@@ -24,9 +24,8 @@ Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les
 
 ## Liste des problèmes
 
-1. [Problème 1](#probleme-1)
-2. [Problème 2](#probleme-2)
-3. [Problème 3](#probleme-3)
+1. [Exercice 266](#exercice-266-tout-ce-qui-est-possible-finit-par-arriver)
+
 
 ## Exercice 266 (Tout ce qui est possible finit par arriver)
 
@@ -34,7 +33,14 @@ On lance un dé non pipé. On répète $n$ fois l'opération, les lancers succes
 
 <details>
  <summary>Solution</summary>
-On peut considérer l'événement contraire $\overline{A_{k}}$ : "ne pas obtenir 6 lors du k-ième lancer" dont la probabilité est $P(\overline{A_{k}}\) = \dfrac{5}{6}$
-N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \cap_{k=1}^{n} \overline{A_{k}}$ dont la probabilité est $P(\overline{A}) = \prod_{k=1}^{n} P(\overline{A_{k}}) = \left(\dfrac{5}{6}\right)^n$ 
+On peut considérer l'événement contraire $\overline{A_{k}}$ : "ne pas obtenir 6 lors du k-ième lancer" dont la probabilité est $P(\overline{A_{k}}) = \dfrac{5}{6}$
 
+N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \cap_{k=1}^{n} \overline{A_{k}}$ dont la probabilité est, par indépendance des $\overline{A_{k}}$, $P(\overline{A}) = \prod_{k=1}^{n} P(\overline{A_{k}}) = \left(\dfrac{5}{6}\right)^n$ 
+
+La probabilité de l'événement contraire $A$ : "obtenir au moins un 6 lors des $n$ lancers" est donc $p_n = 1 - P(\overline{A}) = 1 - \left(\dfrac{5}{6}\right)^n$, et la limite de $(p_n)_{n \geq 1}$ est donc 1 (car $\left(\dfrac{5}{6}\right)^n \to 0$).
 </details>
+
+### Ce que j'ai appris ? 
+
+Et voilà, c'était pas bien compliqué. On retiendra que "au moins" = "complémentaire de aucun", passer au complémentaire doit être un réflexe.
+
