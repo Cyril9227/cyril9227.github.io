@@ -20,7 +20,7 @@ title: LLG
 
 ## Introduction
 
-Page en léger, où le but est de résoudre les problèmes du PDF LLG, et de les poster ici. J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé officiel et de faire le lien avec d'autres notions ou problèmes. 
+Page en léger, où le but est de résoudre les problèmes du famoso PDF LLG. J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé (semi) officiel et de faire le lien avec d'autres notions ou problèmes.
 
 ## Liste des problèmes
 
