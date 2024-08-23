@@ -1,0 +1,7 @@
+remote_theme: pages-themes/cayman
+title: Your Website Title
+description: A brief description of your website
+show_downloads: false
+google_analytics:
+plugins:
+  - jekyll-remote-theme
