@@ -34,13 +34,7 @@ On lance un dé non pipé. On répète $n$ fois l'opération, les lancers succes
 
 <details>
  <summary>Solution</summary>
-On peut considerer l'evenement contraire $\overline{A_{k}}\$ : "ne pas obtenir 6 lors du kieme lancer" dont la probabilite est $P(\overline{A_{k}}\)$
+On peut considérer l'événement contraire $\overline{A_{k}}$ : "ne pas obtenir 6 lors du k-ième lancer" dont la probabilité est $P(\overline{A_{k}}\) = \dfrac{5}{6}$
+N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \cap_{k=1}^{n} \overline{A_{k}}$ dont la probabilité est $P(\overline{A}) = \prod_{k=1}^{n} P(\overline{A_{k}}) = \left(\dfrac{5}{6}\right)^n$ 
+
 </details>
-
-## Problème 2
-
-[Détails et solution du problème 2]
-
-## Problème 3
-
-[Détails et solution du problème 3]
