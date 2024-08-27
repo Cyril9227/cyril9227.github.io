@@ -6,4 +6,4 @@ excerpt: placeholder
 comments: false
 ---
 
-You can [report any issues](http://github.com/cjxe/blog/issues/new) that you come across in the blog.
+You can [report any issues with the site here](https://github.com/Cyril9227/cyril9227.github.io/issues/new)
