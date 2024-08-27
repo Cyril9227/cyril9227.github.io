@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Maths
-permalink: /maths/
+permalink: /_maths/
 ---
 
 Welcome to the Maths section. Here you can find:
 
-- [LLG Problems](/maths/llg/)
+- [LLG Problems](/_maths/llg/)
