@@ -10,10 +10,6 @@
   url: /_maths/
   external: false
 
-- title: LLG Problems
-  url: /_maths/llg/
-  external: false
-
 - title: about
   url: /about/
   external: false
