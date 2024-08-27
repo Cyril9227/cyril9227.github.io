@@ -1,15 +1,13 @@
 ---
-layout: page
-title: LLG
-permalink: /maths/llg/
+title: 'Mes solutions aux problèmes du "PDF LLG"'
+date: 2024-08-27 19:10:02 +00:00
+tags: [maths, probability]
+toc: false
 usemathjax: true
 ---
 
-# Mes solutions aux problèmes du ["PDF LLG"](https://www.louislegrand.fr/wp-content/uploads/2022/01/EXOS-TERMINALE3-3-AVECDESSIN.pdf)
 
-## Introduction
-
-Page en léger, où le but est de résoudre les problèmes du famoso PDF LLG. J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé (semi) officiel et de faire le lien avec d'autres notions ou problèmes.
+Page en léger, où le but est de résoudre les problèmes du famoso ["PDF LLG"](https://www.louislegrand.fr/wp-content/uploads/2022/01/EXOS-TERMINALE3-3-AVECDESSIN.pdf). J'essaie quand c'est possible de donner une solution différente de celle donnée dans le corrigé (semi) officiel et de faire le lien avec d'autres notions ou problèmes.
 
 ## Liste des problèmes
 
@@ -30,9 +28,10 @@ N'obtenir aucun 6 lors des $n$ lancers est donc l'événement $\overline{A} = \c
 
 Finalement, la probabilité de l'événement qui nous intéresse $A$ : "obtenir au moins un 6 lors des $n$ lancers" est $p_n = 1 - P(\overline{A}) = 1 - \left(\dfrac{5}{6}\right)^n$, et la limite de $(p_n)_{n \geq 1}$ est donc $1$ (car $\left(\dfrac{5}{6}\right)^n \to 0$).<br>
 Tout ce qui est possible finit par arriver !!!
-</details>
 
-### Ce que j'ai appris ? 
+<strong>Ce que j'ai appris ? </strong>
 
 Et voilà, c'était pas bien compliqué. On retiendra que passer au complémentaire est souvent un bon réflexe quand on voit le mot-clé "au moins".
+
+</details>
 

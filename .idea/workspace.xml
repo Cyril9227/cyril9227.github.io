@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf6523cf-28b7-4605-9548-cccc515258c8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/_data/menus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_data/menus.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_maths/llg/LLG.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/llg/LLG.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +55,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\cyril\PycharmProjects\cyril9227.github.io\_maths" />
+      <recent name="C:\Users\cyril\PycharmProjects\cyril9227.github.io\_posts\llg" />
       <recent name="C:\Users\cyril\PycharmProjects\cyril9227.github.io\_maths\llg" />
+      <recent name="C:\Users\cyril\PycharmProjects\cyril9227.github.io\_maths" />
     </key>
   </component>
   <component name="SharedIndexes">
