@@ -1,3 +1,7 @@
+---
+layout: home
+---
+
 # Welcome to My Personal Website
 
 Random thoughts
