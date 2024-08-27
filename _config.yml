@@ -8,6 +8,7 @@ image:
 repo: https://github.com/Cyril9227/cyril9227.github.io # site repo [optional]
 mode: dark # default theme "dark" | "light"
 
+
 # Profile settings
 author:
   name: Cyril # author name
@@ -60,6 +61,8 @@ jekyll_compose:
 
 # Homepage limit posts
 number_of_posts: 5
+
+future: true
 
 # Build settings
 # theme: klise
