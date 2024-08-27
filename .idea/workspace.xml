@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf6523cf-28b7-4605-9548-cccc515258c8" name="Changes" comment="" />
+    <list default="true" id="cf6523cf-28b7-4605-9548-cccc515258c8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/_posts/how-to-steal-my-heart-and-approval-a-code-reviewers-dream/2023-10-14-how-to-steal-my-heart-and-approval-a-code-reviewers-dream.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/llg/2023-10-14-llg.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/llg/2023-10-14-llg.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
