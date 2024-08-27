@@ -1,6 +1,7 @@
 ---
 layout: page
 title: LLG
+permalink: /maths/llg/
 usemathjax: true
 ---
 

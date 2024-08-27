@@ -7,7 +7,11 @@
   external: false
 
 - title: maths stuff
-  url: /_maths/llg/LLG.md
+  url: /_maths/
+  external: false
+
+- title: LLG Problems
+  url: /_maths/llg/
   external: false
 
 - title: about

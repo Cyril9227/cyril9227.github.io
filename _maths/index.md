@@ -6,4 +6,4 @@ permalink: /_maths/
 
 Welcome to the Maths section. Here you can find:
 
-- [LLG Problems](/_maths/llg/LLG.md)
+- [LLG Problems](/_maths/llg/)
