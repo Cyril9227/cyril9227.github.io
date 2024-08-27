@@ -8,9 +8,8 @@
 
 - title: about
   url: /about/
-  external: false # set true if you using external link, see below
+  external: false
 
-# Example:
-# - title: github
-#   url: https://github.com/piharpi/jekyll-klise
-#   external: true
+- title: maths
+  url: /maths/
+  external: false
