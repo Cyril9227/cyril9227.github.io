@@ -6,10 +6,10 @@
   url: /all-posts/
   external: false
 
-- title: about
-  url: /about/
+- title: maths stuff
+  url: /maths/
   external: false
 
-- title: maths
-  url: /maths/
+- title: about
+  url: /about/
   external: false

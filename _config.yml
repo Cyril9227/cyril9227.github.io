@@ -4,7 +4,7 @@ description: >- # site description
   placeholder
 lang: en-US # default lang
 timezone: Europe/London # set your timezone
-image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
+image:
 repo: https://github.com/Cyril9227/cyril9227.github.io # site repo [optional]
 mode: dark # default theme "dark" | "light"
 
@@ -18,7 +18,7 @@ author:
   twitter: # twitter username
   facebook: # facebook username
   email: # email adress
-  avatar: /assets/img/avatar.png # change with your own avatar
+  avatar: /assets/img/avatar.png  # change with your own avatar
 
 # URL settings
 url: "" #
