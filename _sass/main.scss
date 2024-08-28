@@ -65,19 +65,17 @@ $on-widescreen: 1152px;
 .content-wrapper {
   display: flex;
   justify-content: center;
-  align-items: stretch; /* Ensure both blocks stretch to the same height */
+  align-items: center;
   margin-top: 20px; /* Adjust as needed for spacing below the quote */
 }
 
 .text-block, .gif-block {
   flex: 1;
   padding: 10px;
-  display: flex;
-  align-items: center; /* Center content vertically */
 }
 
 .text-block {
-  text-align: right;
+  text-align: left;
   padding-right: 20px; /* Space between text and GIF */
 }
 
@@ -86,9 +84,9 @@ $on-widescreen: 1152px;
 }
 
 .gif-block img {
-  height: 100%; /* Match the height of the gif-block (and thus the text block) */
-  width: auto; /* Maintain aspect ratio */
-  object-fit: contain; /* Ensure the GIF is fully visible within the height */
+  max-width: 100%;
+  max-height: 300px;
+  height: auto;
 }
 
 /* Responsive design for smaller screens */
@@ -100,11 +98,5 @@ $on-widescreen: 1152px;
   .text-block, .gif-block {
     text-align: center;
     padding: 10px 0;
-    align-items: center;
-  }
-
-  .gif-block img {
-    width: 100%; /* Full width for smaller screens */
-    height: auto; /* Reset height to auto */
   }
 }
