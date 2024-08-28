@@ -4,4 +4,4 @@ TO DO:
 - [ ] Add more solutions and cool stuff
 - [ ] Refactor to use the maths menu
 - [x] Fix date bug
-- [ ] Find out where the lamp icon went lol
+- [x] Find out where the lamp icon went lol

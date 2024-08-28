@@ -13,7 +13,7 @@ mode: dark # default theme "dark" | "light"
 author:
   name: Cyril # author name
   bio: >- # tell to the world
-    placeholder
+    Random stuff, mainly for my own reference and educational purposes.
   username: Cyril9227 # general username
   github: Cyril9227 # github username
   twitter: # twitter username
@@ -62,6 +62,7 @@ jekyll_compose:
 # Homepage limit posts
 number_of_posts: 5
 
+# Allows to posts to be visible in advance
 future: true
 
 # Build settings
