@@ -46,11 +46,7 @@
         {%- if url == menu.url -%}
           <a class="menu-link active" href="{{ menu.url }}">{{ menu.title }}</a>
         {%- else -%}
-          {%- if menu.external -%}
-            <a class="menu-link" href="{{ menu.url }}" target="_blank" rel="noopener">{{ menu.title }}</a>
-          {%- else -%}
-            <a class="menu-link" href="{{ menu.url }}">{{ menu.title }}</a>
-          {%- endif -%}
+          <a class="menu-link" href="{{ menu.url }}">{{ menu.title }}</a>
         {%- endif -%}
       {%- endfor -%}
     {%- else -%}
