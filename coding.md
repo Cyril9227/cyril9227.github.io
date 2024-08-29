@@ -6,8 +6,6 @@ excerpt: Random bad attempts at coding stuff
 comments: false
 ---
 
-# HELLO WORLD
-
 <div id="posts-container">
   <section class="tag-section">
     {% assign coding_posts = site.tags.coding %}
