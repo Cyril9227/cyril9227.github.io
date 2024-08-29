@@ -7,9 +7,9 @@
   external: false
 
 - title: maths stuff
-  url: https://cyril9227.github.io/tags/#maths
+  url: /maths/
   external: true
 
 - title: coding stuff
-  url: https://cyril9227.github.io/tags/#coding
+  url: /coding/
   external: true
