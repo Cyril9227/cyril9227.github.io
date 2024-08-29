@@ -17,7 +17,7 @@ comments: false
           <h3 class="post-item-title">
             <a href="{{ post.url }}">{{ post.title | escape }}</a>
           </h3>
-          <span class="post-item-tags">
+          <span class="tag-item">
             {% for tag in post.tags %}
               <a href="/tags#{{ tag | slugify }}" class="post-tag">{{ tag }}</a>
             {% endfor %}
