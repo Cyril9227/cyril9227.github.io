@@ -28,7 +28,7 @@ comments: false
         </article>
       {% endfor %}
     {% else %}
-      <p>No mathematics posts found.</p>
+      <p>No maths posts yet...</p>
     {% endif %}
   </section>
 </div>
