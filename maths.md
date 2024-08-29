@@ -7,6 +7,9 @@ comments: false
 ---
 
 
+
+# All Maths posts below : 
+
 <div id="posts-container">
   <section class="tag-section">
     {% assign maths_posts = site.tags.maths %}
@@ -17,9 +20,9 @@ comments: false
           <h3 class="post-item-title">
             <a href="{{ post.url }}">{{ post.title | escape }}</a>
           </h3>
-          <div class="post-item-tags">
+          <div class="all-posts-tags">
             {% for tag in post.tags %}
-              <a class="tag-item" href="/tags/#{{ tag }}">{{ tag }}</a>
+              <a href="/tags#{{ tag | slugify }}" class="tag-item">{{ tag }}</a>
             {% endfor %}
           </div>
         </article>
