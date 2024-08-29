@@ -2,10 +2,6 @@
   url: /
   external: false
 
-- title: all posts
-  url: /all-posts/
-  external: false
-
 - title: maths stuff
   url: /maths/
   external: true
@@ -13,3 +9,7 @@
 - title: coding stuff
   url: /coding/
   external: true
+
+- title: archive
+  url: /all-posts/
+  external: false
