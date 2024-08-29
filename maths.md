@@ -9,8 +9,6 @@ comments: false
 # HELLO WORLD
 
 
-<h1>Mathematics Posts</h1>
-
 <div id="posts-container">
   <section class="tag-section">
     {% assign maths_posts = site.tags.maths %}
