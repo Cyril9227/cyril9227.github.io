@@ -29,26 +29,3 @@ excerpt: Posts grouped by tags.
     </section>
   {%- endfor -%}
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Get the hash from the URL
-    var hash = window.location.hash.substring(1);
-
-    // Show or hide sections based on the hash
-    var sections = document.querySelectorAll('.tag-section');
-    if (hash) {
-      sections.forEach(function(section) {
-        if (section.id === hash || hash === 'all') {
-          section.style.display = 'block';
-        } else {
-          section.style.display = 'none';
-        }
-      });
-    } else {
-      sections.forEach(function(section) {
-        section.style.display = 'none';
-      });
-    }
-  });
-</script>
