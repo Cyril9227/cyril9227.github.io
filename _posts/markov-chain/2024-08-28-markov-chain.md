@@ -13,7 +13,7 @@ toc: false
 
 Yeah, so recently I've been reading "The Man Who Solved The Market" by Gregory Zuckerman. Fun book about Jim Simons and his famously cracked Renaissance Technologies hedge fund. Unfortunately, it didn't make me better at trading lol
 
-<img src="/markov-chain/rekt.png" alt="HL"> 
+<img src="/assets/img/rekt.png" alt="HL"> 
 
 but it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the Institute for Defense Analyses, where Simons worked before founding Renaissance, he published a paper
 Simons published a paper while working at the IDA in Princeton in 1964 on Markov Chains. So I thought I'd write a post about it.
@@ -29,7 +29,7 @@ $$P(X_{n+1} | X_{n}, X_{n-1}, \ldots, X_{0}) = P(X_{n+1}| X_{n})$$
 A Markov chain is usually given by a graph :
 
 
-<img src="/markov-chain/mchain.png" alt="mchain">
+<img src="/assets/img/mchain.png" alt="mchain">
 
 
 where each node is a possible state and each edge represents the transition probability.
