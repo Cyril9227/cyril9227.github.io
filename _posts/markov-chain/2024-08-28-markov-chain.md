@@ -70,12 +70,36 @@ A Hidden Markov Chain is like a Markov Chain, but with a twist: the states are *
 
 ## Likelihood
 
+Blabla + example
+
+## Forward Algorithm
+
+Blabla the maths we're trying to do
+
 ```python
 
+pi = np.array([0.2, 0.8])  # Initial state probability distribution
+
+# 2 x 2 matrix because we have 2 states
+A = np.array([[0.5, 0.5], 
+              [0.4, 0.6]])  # Transition probabilities
+
+O = [3, 1, 3]  # Observation sequence
+
+# 2 x 3 matrix because we have 2 states and 3 possible observations encoded as 1, 2, 3
+B = np.array([[0.5, 0.4, 0.1], 
+              [0.2, 0.4, 0.4]])  # Emission probabilities
+
+
+```
+
+Naive example is what we described above. We enumerate all possible state sequences and compute the probability of each one. This is not efficient at all, but it's a good way to understand the problem.
+
+```python
 import itertools
 def naive_approach(A, B, pi, O):
-    # Enumerate all possible state sequences
     total_prob = 0
+    # Enumerate all possible state sequences
     for state_seq in itertools.product(range(len(A)), repeat=len(O)):
         seq_prob = pi[state_seq[0]]  # Initial state probability
         # Probability of state transitions
@@ -90,6 +114,7 @@ def naive_approach(A, B, pi, O):
 
 ```
 
+More efficient way is to use the forward algorithm. The forward algorithm is a dynamic programming algorithm that computes the probability of an observation sequence given a Hidden Markov Model. It's based on the Markov property and the conditional independence of the observations given the state of the system.
 
 ```python
 
@@ -97,8 +122,8 @@ import numpy as np
 def forward_algorithm(A, B, pi, O):
     """
     A: Transition probability matrix (N x N)
-    B: Emission probability matrix (N x M)
-    pi: Initial state distribution (N)
+    B: Emission probability matrix (N x T)
+    pi: Initial state proability distribution (N)
     O: Observation sequence (length T)
     """
     N = len(A)       # Number of states
@@ -118,8 +143,6 @@ def forward_algorithm(A, B, pi, O):
 
 
 ```
-
-## Forward Algorithm
 
 ## Viterbi Algorithm
 
