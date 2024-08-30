@@ -13,8 +13,8 @@ toc: false
 
 Yeah, so recently I've been reading "The Man Who Solved The Market" by Gregory Zuckerman. Fun book about Jim Simons and his famously cracked Renaissance Technologies hedge fund. Unfortunately, it didn't make me better at trading lol
 <figure>
-	<img src="/markov-chain/rekt.png" alt="HL">
-</figure> but it motivated me to learn more about some of the math. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the Institute for Defense Analyses, where Simons worked before founding Renaissance, he published a paper
+	<img src="rekt.png" alt="HL">
+</figure> but it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the Institute for Defense Analyses, where Simons worked before founding Renaissance, he published a paper
 Simons published a paper while working at the IDA in Princeton in 1964 on Markov Chains. So I thought I'd write a post about it.
 
 >Simons and the code-breakers proposed a similar approach to predicting stock prices, relying on a sophisticated mathematical tool called a hidden Markov model. Just as a gambler might guess an opponent’s mood based on his or her decisions, an investor might deduce a market’s state from its price movements.  Simons’s paper was crude, even for the late 1960s. He and his colleagues made some naive assumptions, such as that trades could be made “under ideal conditions,” which included no trading costs, even though the model required heavy, daily trading. Still, the paper can be seen as something of a trailblazer.
@@ -22,23 +22,26 @@ Simons published a paper while working at the IDA in Princeton in 1964 on Markov
 # Markov Chains
 
 Big assumption of markov models is that the probability of the next state depends only on the current state and not on the sequence of events that preceded it. This is called the Markov property.
-Formally, if we note the states of the system as $X_{0}, X_{1}, X_{2}, \ldots$, the Markov property states that for all $n \geq 0$ and all states $i_{0}, i_{1}, i_{2}, \ldots, i_{n}$, we have:
-$P(X_{n+1} = i_{n+1} | X_{n} = i_{n}, X_{n-1} = i_{n-1}, \ldots, X_{0} = i_{0}) = P(X_{n+1} = i_{n+1} | X_{n} = i_{n})$
+Formally, if we note the states of the system as $$X_{0}, X_{1}, X_{2}, \ldots$$, the Markov property states that for all $$n \geq 0$$ we have:
+$$P(X_{n+1} | X_{n}, X_{n-1}, \ldots, X_{0}) = P(X_{n+1}| X_{n})$$
 
 A Markov chain is usually given by a graph :
 
-![mchain](mchain.png)
+<figure>
+	<img src="mchain.png" alt="HL">
+</figure>
 
- where each node is a possible state and each edge represents the transition probability.
 
-A markov chain is entirely described by 3 components. An initial probability distribution $\pi$, a transition probability matrix $A$ where each $a_{ij}$ representing the probability of moving from state
-$i$ to state $j$ and a list of possible states $q_{1} ... q_{n}$
+where each node is a possible state and each edge represents the transition probability.
+
+A markov chain is entirely described by 3 components. An initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ representing the probability of moving from state
+$$i$$ to state $$j$$ and a list of possible states $$q_{1} ... q_{n}$$
     
 
 
 The transition matrix for this Markov chain is a square matrix where each element represents the probability of transitioning from one state to another. The rows correspond to the current state, and the columns correspond to the next state.
 
-Given our 3 states HOT, COLD and WARM, the transition matrix $A$ is then:
+Given our 3 states $$HOT$$, $$COLD$$ and $$WARM$$, the transition matrix $$A$$ is then:
 
 
 $$A = \begin{pmatrix}
@@ -55,7 +58,7 @@ $$A = \begin{pmatrix}
 0.3 & 0.1 & 0.6
 \end{pmatrix}$$
 
-This matrix represents the probabilities of moving from one state to another. Each row sums to 1, which is a requirement for a valid transition matrix in a Markov chain.
+This matrix represents the probabilities of moving from one state to another. Each row sums to $$1$$, which is a requirement for a valid transition matrix in a Markov chain.
 
 
 # Hidden Markov Chains
