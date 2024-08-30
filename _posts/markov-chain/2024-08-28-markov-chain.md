@@ -13,7 +13,10 @@ toc: false
 
 Yeah, so recently I've been reading "The Man Who Solved The Market" by Gregory Zuckerman. Fun book about Jim Simons and his famously cracked Renaissance Technologies hedge fund. Unfortunately, it didn't make me better at trading lol
 
-<img src="/assets/img/rekt.png" alt="HL"> 
+<figure style="text-align: center;">
+  <img src="/assets/img/rekt.png" alt="HL" style="width: 60%; max-width: 500px;">
+  <figcaption style="font-style: italic;">Use my <a href="https://app.hyperliquid.xyz/join/CYRIL9227">ref link</a>👽</figcaption>
+</figure>
 
 but it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the Institute for Defense Analyses, where Simons worked before founding Renaissance, he published a paper
 Simons published a paper while working at the IDA in Princeton in 1964 on Markov Chains. So I thought I'd write a post about it.
@@ -62,3 +65,8 @@ This matrix represents the probabilities of moving from one state to another. Ea
 
 
 # Hidden Markov Chains
+
+# Ressources
+
+https://web.stanford.edu/~jurafsky/slp3/A.pdf
+https://github.com/Bratet/Stock-Prediction-Using-Hidden-Markov-Chains/blob/main/src/utils/hmm.py
