@@ -5,19 +5,8 @@ tags: [maths, coding, probability]
 toc: false
 ---
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-        {left: "$$", right: "$$", display: false},
-        {left: "$", right: "$", display: false}
-      ]
-    });
-  });
-</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 
 # What are we doing here ?
@@ -36,10 +25,11 @@ Big assumption of markov models is that the probability of the next state depend
 Formally, if we note the states of the system as $X_{0}, X_{1}, X_{2}, \ldots$, the Markov property states that for all $n \geq 0$ and all states $i_{0}, i_{1}, i_{2}, \ldots, i_{n}$, we have:
 $P(X_{n+1} = i_{n+1} | X_{n} = i_{n}, X_{n-1} = i_{n-1}, \ldots, X_{0} = i_{0}) = P(X_{n+1} = i_{n+1} | X_{n} = i_{n})$
 
-A Markov chain is usually given by a graph : 
-<figure>
-	<img src="/markov-chain/mchain.png" alt="mchain">
-</figure> where each node is a possible state and each edge represents the transition probability.
+A Markov chain is usually given by a graph :
+
+![mchain](mchain.png)
+
+ where each node is a possible state and each edge represents the transition probability.
 
 A markov chain is entirely described by 3 components. An initial probability distribution $\pi$, a transition probability matrix $A$ where each $a_{ij}$ representing the probability of moving from state
 $i$ to state $j$ and a list of possible states $q_{1} ... q_{n}$
