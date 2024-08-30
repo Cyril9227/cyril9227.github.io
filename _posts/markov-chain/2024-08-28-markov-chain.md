@@ -12,7 +12,7 @@ toc: false
   document.addEventListener("DOMContentLoaded", function() {
     renderMathInElement(document.body, {
       delimiters: [
-        {left: "$$", right: "$$", display: true},
+        {left: "$$", right: "$$", display: false},
         {left: "$", right: "$", display: false}
       ]
     });
@@ -51,19 +51,19 @@ The transition matrix for this Markov chain is a square matrix where each elemen
 Given our 3 states HOT, COLD and WARM, the transition matrix $A$ is then:
 
 
-$A = \begin{pmatrix}
+$$A = \begin{pmatrix}
 P(\text{HOT} \rightarrow \text{HOT}) & P(\text{HOT} \rightarrow \text{COLD}) & P(\text{HOT} \rightarrow \text{WARM}) \\
 P(\text{COLD} \rightarrow \text{HOT}) & P(\text{COLD} \rightarrow \text{COLD}) & P(\text{COLD} \rightarrow \text{WARM}) \\
 P(\text{WARM} \rightarrow \text{HOT}) & P(\text{WARM} \rightarrow \text{COLD}) & P(\text{WARM} \rightarrow \text{WARM})
-\end{pmatrix}$
+\end{pmatrix}$$
 
 Substituting the values from the diagram:
 
-$A = \begin{pmatrix}
+$$A = \begin{pmatrix}
 0.6 & 0.1 & 0.3 \\
 0.1 & 0.8 & 0.1 \\
 0.3 & 0.1 & 0.6
-\end{pmatrix}$
+\end{pmatrix}$$
 
 This matrix represents the probabilities of moving from one state to another. Each row sums to 1, which is a requirement for a valid transition matrix in a Markov chain.
 
