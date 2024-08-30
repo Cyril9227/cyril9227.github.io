@@ -70,6 +70,55 @@ A Hidden Markov Chain is like a Markov Chain, but with a twist: the states are *
 
 ## Likelihood
 
+```python
+
+import itertools
+def naive_approach(A, B, pi, O):
+    # Enumerate all possible state sequences
+    total_prob = 0
+    for state_seq in itertools.product(range(len(A)), repeat=len(O)):
+        seq_prob = pi[state_seq[0]]  # Initial state probability
+        # Probability of state transitions
+        for t in range(1, T):
+            seq_prob *= A[state_seq[t-1], state_seq[t]]
+        # Probability of emissions
+        for t in range(T):
+            seq_prob *= B[state_seq[t], O[t]-1]
+        total_prob += seq_prob
+    return total_prob
+
+
+```
+
+
+```python
+
+import numpy as np
+def forward_algorithm(A, B, pi, O):
+    """
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x M)
+    pi: Initial state distribution (N)
+    O: Observation sequence (length T)
+    """
+    N = len(A)       # Number of states
+    T = len(O)       # Length of observation sequence
+
+    forward = np.zeros((N, T))
+    forward[:, 0] = pi * B[:, O[0] - 1]
+    
+    for t in range(1, T):
+        for s in range(N):
+            forward[s, t] = np.sum(forward[:, t - 1] * A[:, s] * B[s, O[t] - 1])
+    return forward, np.sum(forward[:, -1])
+
+
+
+
+
+
+```
+
 ## Forward Algorithm
 
 ## Viterbi Algorithm
