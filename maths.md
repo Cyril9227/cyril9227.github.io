@@ -6,10 +6,6 @@ excerpt: Random bad maths and cool problems
 comments: false
 ---
 
-
-
-# All Maths posts below : 
-
 <div id="posts-container">
   <section class="tag-section">
     {% assign maths_posts = site.tags.maths %}
