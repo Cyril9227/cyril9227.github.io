@@ -12,9 +12,10 @@ toc: false
 # What are we doing here ?
 
 Yeah, so recently I've been reading "The Man Who Solved The Market" by Gregory Zuckerman. Fun book about Jim Simons and his famously cracked Renaissance Technologies hedge fund. Unfortunately, it didn't make me better at trading lol
-<figure>
-	<img src="rekt.png" alt="HL">
-</figure> but it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the Institute for Defense Analyses, where Simons worked before founding Renaissance, he published a paper
+
+<img src="/markov-chain/rekt.png" alt="HL"> 
+
+but it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the Institute for Defense Analyses, where Simons worked before founding Renaissance, he published a paper
 Simons published a paper while working at the IDA in Princeton in 1964 on Markov Chains. So I thought I'd write a post about it.
 
 >Simons and the code-breakers proposed a similar approach to predicting stock prices, relying on a sophisticated mathematical tool called a hidden Markov model. Just as a gambler might guess an opponent’s mood based on his or her decisions, an investor might deduce a market’s state from its price movements.  Simons’s paper was crude, even for the late 1960s. He and his colleagues made some naive assumptions, such as that trades could be made “under ideal conditions,” which included no trading costs, even though the model required heavy, daily trading. Still, the paper can be seen as something of a trailblazer.
@@ -27,9 +28,8 @@ $$P(X_{n+1} | X_{n}, X_{n-1}, \ldots, X_{0}) = P(X_{n+1}| X_{n})$$
 
 A Markov chain is usually given by a graph :
 
-<figure>
-	<img src="mchain.png" alt="HL">
-</figure>
+
+<img src="/markov-chain/mchain.png" alt="mchain">
 
 
 where each node is a possible state and each edge represents the transition probability.
