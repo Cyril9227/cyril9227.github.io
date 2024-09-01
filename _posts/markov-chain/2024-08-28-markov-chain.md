@@ -41,7 +41,6 @@ A Markov chain is usually represented by a graph :
   <figcaption style="font-style: italic;">Each node is a possible state and each edge represents the transition probability.</figcaption>
 </figure>
 
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,8 +56,10 @@ A Markov chain is usually represented by a graph :
 </head>
 <body>
     <div class="highlight-box">
-        And is entirely described by 3 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
-$$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} ... q_{n}$$
+        {% raw %}
+        And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a\_{ij}$$ represents the probability of moving from state
+        $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q\_{1} \ldots q\_{n}$$
+        {% endraw %}
     </div>
 </body>
 
@@ -70,7 +71,7 @@ P(\text{HOT} \rightarrow \text{HOT}) & P(\text{HOT} \rightarrow \text{COLD}) & P
 P(\text{COLD} \rightarrow \text{HOT}) & P(\text{COLD} \rightarrow \text{COLD}) & P(\text{COLD} \rightarrow \text{WARM}) \\
 P(\text{WARM} \rightarrow \text{HOT}) & P(\text{WARM} \rightarrow \text{COLD}) & P(\text{WARM} \rightarrow \text{WARM})
 \end{pmatrix}$$
-$$=\begin{pmatrix}
+$$A = \begin{pmatrix}
 0.6 & 0.1 & 0.3 \\
 0.1 & 0.8 & 0.1 \\
 0.3 & 0.1 & 0.6
@@ -106,8 +107,10 @@ Imagine now that instead of directly knowing the weather, you only get to know h
 </head>
 <body>
     <div class="highlight-box">
+        {% raw %}
         A hidden Markov chain is entirely described by 4 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
 $$i$$ to state $$j$$, a list $$Q$$ of possible states $$q_{1} ... q_{n}$$ and $$B$$, the emission probability matrix where each $$b_{ij}$$ represents the probability of observing $$O_{j}$$ given that the system is in state $$q_{i}$$
+        {% endraw %}
     </div>
 </body>
 
