@@ -75,7 +75,7 @@ Imagine now that instead of directly knowing the weather, you only get to know h
 
 <div class="math-text-box">
   <p>A hidden Markov chain is entirely described by 4 components : an initial probability distribution <span class="math-inline">\(\pi\)</span>, a transition probability matrix <span class="math-inline">\(A\)</span> where each <span class="math-inline">\(a_{ij}\)</span> represents the probability of moving from state <span class="math-inline">\(i\)</span> to state <span class="math-inline">\(j\)</span>, a list <span class="math-inline">\(Q\)</span> of possible states <span class="math-inline">\(q_1 \ldots q_n\)</span> and 
-<span class="math-inline">\(B|)</span>, the emission probability matrix where each <span class="math-inline">\(b_{ij}\)</span> represents the probability of observing <span class="math-inline">\(O_{j}\)</span> given that the system is in state <span class="math-inline">\(q_{i}\)</span>.</p>
+<span class="math-inline">\(B\)</span>, the emission probability matrix where each <span class="math-inline">\(b_{ij}\)</span> represents the probability of observing <span class="math-inline">\(O_{j}\)</span> given that the system is in state <span class="math-inline">\(q_{i}\)</span>.</p>
 </div>
 
 
@@ -83,9 +83,9 @@ Imagine now that instead of directly knowing the weather, you only get to know h
 
 When dealing with Hidden Markov Models, we usually want to solve 3 things:
 
-1. **Likelihood**: Given a model $$\lambda = (A, B, \pi)$$ and an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we compute the probability $$P(O | \lambda)$$ that the model generates the observation sequence ?
+1. **Likelihood**: Given a model $$\lambda = (A, B, \pi)$$ and an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we compute the probability $$P(O \vert \lambda)$$ that the model generates the observation sequence ?
 2. **Decoding**: Given a model $$\lambda = (A, B, \pi)$$ and an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we choose a sequence of states $$Q = q_{1}, q_{2}, \ldots, q_{T}$$ that best explains the observation sequence ?
-3. **Learning**: Given an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we adjust the model $$\lambda = (A, B, \pi)$$ to maximize the probability $$P(O | \lambda)$$ that the model generates the observation sequence ?
+3. **Learning**: Given an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we adjust the model $$\lambda = (A, B, \pi)$$ to maximize the probability $$P(O \vert \lambda)$$ that the model generates the observation sequence ?
 
 ## Likelihood
 
