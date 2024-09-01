@@ -14,7 +14,7 @@ toc: false
 Yeah, so recently I've been reading "The Man Who Solved The Market" by Gregory Zuckerman. Fun book about Jim Simons and his famously cracked Renaissance Technologies hedge fund. Unfortunately, it didn't make me better at trading lol
 
 <figure style="text-align: center;">
-  <img src="/assets/img/rekt.png" alt="HL" style="width: 60%; max-width: 500px;">
+  <img src="/assets/img/mchain/rekt.png" alt="HL" style="width: 60%; max-width: 500px;">
   <figcaption style="font-style: italic;">Use my <a href="https://app.hyperliquid.xyz/join/CYRIL9227">ref link</a>👽</figcaption>
 </figure>
 
@@ -25,7 +25,7 @@ Here is what Zuckerman says about it:
 
 Also, one of his early associate, Lenny Baum, was the co-author of the Baum-Welch algorithm, a method for training hidden Markov models.<br>
 
-OK. That's 2 instances. That's more than enough justification to write a refresher on Markov chains and hidden Markov chains (the topic of one of my masters courses) and _try_ to implement them in `Python`.
+OK. That's 2 instances. That's more than enough justification to write a refresher on Markov chains and hidden Markov chains and _try_ to implement some of the concepts in `Python`.
 
 
 # Markov Chains ?
@@ -37,13 +37,30 @@ $$P(X_{n+1} | X_{n}, X_{n-1}, \ldots, X_{0}) = P(X_{n+1}| X_{n})$$
 A Markov chain is usually represented by a graph :
 
 <figure style="text-align: center;">
-  <img src="/assets/img/mchain.png" alt="mchain">
+  <img src="/assets/img/mchain/mchain.png" alt="mchain">
   <figcaption style="font-style: italic;">Each node is a possible state and each edge represents the transition probability.</figcaption>
 </figure>
 
 
-And is entirely described by 3 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlight Text</title>
+    <style>
+        .highlight-box {
+            border: 2px solid #000; /* Border color and thickness */
+            padding: 10px; /* Space between the text and the border */
+            margin: 10px 0; /* Space above and below the box */
+            border-radius: 5px; /* Rounded corners */
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-box">
+        And is entirely described by 3 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
 $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} ... q_{n}$$
+    </div>
+</body>
 
 
 If we circle back to our example, the list of our possible states is $$Q = \{HOT, COLD, WARM\}$$, the initial probability distribution could be $$\pi = [0.1, 0.7, 0.2]$$ and, by reading the graph, the transition matrix $$A$$ would be then:
@@ -52,7 +69,8 @@ $$A = \begin{pmatrix}
 P(\text{HOT} \rightarrow \text{HOT}) & P(\text{HOT} \rightarrow \text{COLD}) & P(\text{HOT} \rightarrow \text{WARM}) \\
 P(\text{COLD} \rightarrow \text{HOT}) & P(\text{COLD} \rightarrow \text{COLD}) & P(\text{COLD} \rightarrow \text{WARM}) \\
 P(\text{WARM} \rightarrow \text{HOT}) & P(\text{WARM} \rightarrow \text{COLD}) & P(\text{WARM} \rightarrow \text{WARM})
-\end{pmatrix} = \begin{pmatrix}
+\end{pmatrix}$$
+$$=\begin{pmatrix}
 0.6 & 0.1 & 0.3 \\
 0.1 & 0.8 & 0.1 \\
 0.3 & 0.1 & 0.6
@@ -65,14 +83,47 @@ Once we have that, we can perform some basic computations. For instance, if we w
 
 # Hidden Markov Chains
 
-A Hidden Markov Chain is like a Markov Chain, but with a twist: the states are **hidden**. You can't directly observe the state the system is in; instead, you observe something that gives you a clue about the state. Imagine now that instead of directly knowing the weather, you only get to see someone’s outfit each day (e.g., they wear a T-shirt, or a sweater). The weather (HOT, COLD, WARM) is still following a Markov chain, but you can only guess what the weather is based on what people are wearing (don't ask why you can't directly have access to the weather, just pretend).
+A Hidden Markov Chain is like a Markov Chain, but with a twist: the states are **hidden**. You can't directly observe the state the system is in; instead, you observe something that gives you a clue about the state.<br>
+Imagine now that instead of directly knowing the weather, you only get to know how many icecream someone ate. The weather (HOT, COLD) is still following a Markov chain, but you can only guess what the weather is based on the amount of icecream consumed (don't ask why you can't directly have access to the weather, just pretend).
 
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/hmchain.png" alt="hmchain">
+  <figcaption style="font-style: italic;">The hidden states are represented by the circles and the possible observations with their associated probabilities by the squares.</figcaption>
+</figure>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlight Text</title>
+    <style>
+        .highlight-box {
+            border: 2px solid #000; /* Border color and thickness */
+            padding: 10px; /* Space between the text and the border */
+            margin: 10px 0; /* Space above and below the box */
+            border-radius: 5px; /* Rounded corners */
+        }
+    </style>
+</head>
+<body>
+    <div class="highlight-box">
+        A hidden Markov chain is entirely described by 4 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
+$$i$$ to state $$j$$, a list $$Q$$ of possible states $$q_{1} ... q_{n}$$ and $$B$$, the emission probability matrix where each $$b_{ij}$$ represents the probability of observing $$O_{j}$$ given that the system is in state $$q_{i}$$
+    </div>
+</body>
+
+## The 3 fundamental problems
+
+When dealing with Hidden Markov Models, we usually want to solve 3 things:
+
+1. **Likelihood**: Given a model $$\lambda = (A, B, \pi)$$ and an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we compute the probability $$P(O | \lambda)$$ that the model generates the observation sequence ?
+2. **Decoding**: Given a model $$\lambda = (A, B, \pi)$$ and an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we choose a sequence of states $$Q = q_{1}, q_{2}, \ldots, q_{T}$$ that best explains the observation sequence ?
+3. **Learning**: Given an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we adjust the model $$\lambda = (A, B, \pi)$$ to maximize the probability $$P(O | \lambda)$$ that the model generates the observation sequence ?
 
 ## Likelihood
 
 Blabla + example
 
-## Forward Algorithm
+### Forward Algorithm
 
 Blabla the maths we're trying to do
 
