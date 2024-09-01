@@ -100,10 +100,10 @@ The computation would simply be $$P(3, 1, 3 \vert \text{hot hot cold}) = P(3 \ve
 The issue is that we don't actually know the hidden states, so we also need to compute the probability that the hidden states were indeed _hot hot cold_ which is given by :
 $$P(\text{hot hot cold}) = P(\text{start} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{cold})$$
 $$P(\text{hot hot cold}) = P(\text{hot} \vert \text{start})\times P(\text{hot} \vert \text{hot}) \times P(\text{cold} \vert \text{hot})$$
-$$P(\text{hot hot cold}) = 0.2 \times 0.6 \times 0.4 = 0.048$$
+$$P(\text{hot hot cold}) = 0.8 \times 0.6 \times 0.4 = 0.192$$
 
 If we piece everything together, we get can compute the joint probability of the observation sequence and the hidden states:
-$$P(3, 1, 3, \text{hot hot cold}) = P(3, 1, 3 \vert \text{hot hot cold}) \times P(\text{hot hot cold}) = 0.008 \times 0.048 = 0.000384$$
+$$P(3, 1, 3, \text{hot hot cold}) = P(3, 1, 3 \vert \text{hot hot cold}) \times P(\text{hot hot cold}) = 0.008 \times 0.192 = 0.001536$$
 
 <figure style="text-align: center;">
   <img src="/assets/img/mchain/joint.png" alt="hmchain">
@@ -176,7 +176,8 @@ For long sequences, this approach is not feasible but smart people came up with 
 
 ### Forward Algorithm
 
-The forward algorithm is a dynamic programming algorithm that computes the probability of an observation sequence given a Hidden Markov Model.
+The forward algorithm is a dynamic programming algorithm, that is, an algorithm that uses a table to store
+intermediate values as it builds up the final probability of the observation sequence.
 
 ```python
 
