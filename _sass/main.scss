@@ -101,8 +101,10 @@ $on-widescreen: 1152px;
   }
 }
 
-.highlight {
-  background-color: #ffff99;
-  padding: 2px 4px;
-  border-radius: 4px;
+.text-box {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
 }

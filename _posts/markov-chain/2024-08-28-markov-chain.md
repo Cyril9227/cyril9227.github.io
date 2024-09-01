@@ -45,8 +45,9 @@ A Markov chain is usually represented by a graph :
 And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
 $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$
 
-<span class="highlight">And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$.</span>
-
+<div class="text-box">
+And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$.
+</div>
 
 If we circle back to our example, the list of our possible states is $$Q = \{HOT, COLD, WARM\}$$, the initial probability distribution could be $$\pi = [0.1, 0.7, 0.2]$$ and, by reading the graph, the transition matrix $$A$$ would be then:
 
