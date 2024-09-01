@@ -47,11 +47,12 @@ $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$
 
 <style>
 .math-text-box {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 15px;
   margin: 10px 0;
-  background-color: #f9f9f9;
+  background-color: var(--box-bg-color);
+  color: var(--text-color);
 }
 
 .math-text-box p {
@@ -68,6 +69,20 @@ $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$
   display: block;
   margin: 10px auto;
   text-align: center;
+}
+
+/* Light theme (default) */
+body {
+  --border-color: #ccc;
+  --box-bg-color: #f9f9f9;
+  --text-color: #333;
+}
+
+/* Dark theme */
+body[data-theme="dark"] {
+  --border-color: #555;
+  --box-bg-color: #2a2a2a;
+  --text-color: #e0e0e0;
 }
 </style>
 
