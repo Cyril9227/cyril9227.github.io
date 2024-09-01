@@ -100,3 +100,42 @@ $on-widescreen: 1152px;
     padding: 10px 0;
   }
 }
+
+.math-text-box {
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: var(--box-bg-color);
+  color: var(--text-color);
+}
+
+.math-text-box p {
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+}
+
+.math-text-box .math-inline {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.math-text-box .math-block {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+}
+
+/* Light theme (default) */
+body {
+  --border-color: #ccc;
+  --box-bg-color: #f9f9f9;
+  --text-color: #333;
+}
+
+/* Dark theme */
+body[data-theme="dark"] {
+  --border-color: #555;
+  --box-bg-color: #2a2a2a;
+  --text-color: #e0e0e0;
+}

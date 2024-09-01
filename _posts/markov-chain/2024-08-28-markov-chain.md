@@ -41,51 +41,6 @@ A Markov chain is usually represented by a graph :
   <figcaption style="font-style: italic;">Each node is a possible state and each edge represents the transition probability.</figcaption>
 </figure>
 
-
-And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
-$$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$
-
-<style>
-.math-text-box {
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 15px;
-  margin: 10px 0;
-  background-color: var(--box-bg-color);
-  color: var(--text-color);
-}
-
-.math-text-box p {
-  margin: 0 0 10px 0;
-  line-height: 1.5;
-}
-
-.math-text-box .math-inline {
-  display: inline-block;
-  margin: 0 3px;
-}
-
-.math-text-box .math-block {
-  display: block;
-  margin: 10px auto;
-  text-align: center;
-}
-
-/* Light theme (default) */
-body {
-  --border-color: #ccc;
-  --box-bg-color: #f9f9f9;
-  --text-color: #333;
-}
-
-/* Dark theme */
-body[data-theme="dark"] {
-  --border-color: #555;
-  --box-bg-color: #2a2a2a;
-  --text-color: #e0e0e0;
-}
-</style>
-
 <div class="math-text-box">
   <p>And is entirely described by 3 components: an initial probability distribution <span class="math-inline">\(\pi\)</span>, a transition probability matrix <span class="math-inline">\(A\)</span> where each <span class="math-inline">\(a_{ij}\)</span> represents the probability of moving from state <span class="math-inline">\(i\)</span> to state <span class="math-inline">\(j\)</span> and a list <span class="math-inline">\(Q\)</span> of possible states <span class="math-inline">\(q_1 \ldots q_n\)</span>.</p>
 </div>
@@ -118,9 +73,11 @@ Imagine now that instead of directly knowing the weather, you only get to know h
   <figcaption style="font-style: italic;">The hidden states are represented by the circles and the possible observations with their associated probabilities by the squares.</figcaption>
 </figure>
 
+<div class="math-text-box">
+  <p>A hidden Markov chain is entirely described by 4 components : an initial probability distribution <span class="math-inline">\(\pi\)</span>, a transition probability matrix <span class="math-inline">\(A\)</span> where each <span class="math-inline">\(a_{ij}\)</span> represents the probability of moving from state <span class="math-inline">\(i\)</span> to state <span class="math-inline">\(j\)</span>, a list <span class="math-inline">\(Q\)</span> of possible states <span class="math-inline">\(q_1 \ldots q_n\)</span> and 
+<span class="math-inline">\(B|)</span>, the emission probability matrix where each <span class="math-inline">\(b_{ij}\)</span> represents the probability of observing <span class="math-inline">\(O_{j}\)</span> given that the system is in state <span class="math-inline">\(q_{i}\)</span>.</p>
+</div>
 
-A hidden Markov chain is entirely described by 4 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
-$$i$$ to state $$j$$, a list $$Q$$ of possible states $$q_{1} ... q_{n}$$ and $$B$$, the emission probability matrix where each $$b_{ij}$$ represents the probability of observing $$O_{j}$$ given that the system is in state $$q_{i}$$
 
 ## The 3 fundamental problems
 
