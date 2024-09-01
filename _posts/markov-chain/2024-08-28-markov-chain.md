@@ -119,7 +119,7 @@ $$P(O) = \sum_{Q} P(O, Q) = \sum{Q} P(O \vert Q) \times P(Q)$$
 For us : $$P(313) = P(313, \text{cold, cold, cold}) \dots P(313, \text{hot, hot, cold}) \dots  P(313, \text{hot, hot, hot})$$
 
 <figure style="text-align: center;">
-  <img src="/assets/img/mchain/nerd" alt="hmchain">
+  <img src="/assets/img/mchain/nerd.png" alt="hmchain">
 </figure>
 
 We can do this naive approach in python :
@@ -128,13 +128,13 @@ We can do this naive approach in python :
 
 pi = np.array([0.2, 0.8])  # Initial state probability distribution
 
-# 2 x 2 matrix because we have 2 states
+# 2 x 2 matrix because we have 2 states (1st state Cold, 2nd Hot)
 A = np.array([[0.5, 0.5], 
               [0.4, 0.6]])  # Transition probabilities
 
 O = [3, 1, 3]  # Observation sequence
 
-# 2 x 3 matrix because we have 2 states (1st state Cold, 2nd Hot) and 3 possible observations encoded as 1, 2, 3 (number of icecreams)
+# 2 x 3 matrix because we have 2 states and 3 possible observations encoded as 1, 2, 3 (number of icecreams)
 B = np.array([[0.5, 0.4, 0.1], 
               [0.2, 0.4, 0.4]])  # Emission probabilities
 
@@ -143,14 +143,15 @@ B = np.array([[0.5, 0.4, 0.1],
 
 ```python
 import itertools
-def naive_approach(A, B, pi, O):
+def naive_approach(pi, O, A, B):
     """
-    A: Transition probability matrix (N x N)
-    B: Emission probability matrix (N x T)
     pi: Initial state proability distribution (N)
     O: Observation sequence (length T)
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x T)
     
-    Enumerate all possible state sequences and compute the total probability by summing the probabilities of each sequence
+    Enumerate all possible state sequences and compute the total probability 
+    by summing the probabilities of each sequence
     """
     N = len(A)       # Number of states
     T = len(O)       # Length of observation sequence
@@ -158,10 +159,10 @@ def naive_approach(A, B, pi, O):
     # Enumerate all possible state sequences
     for state_seq in itertools.product(range(N), repeat=T):
         seq_prob = pi[state_seq[0]]  # Initial state probability
-        # Probability of state transitions
+        # Probability of state transitions given by our transition matrix A
         for t in range(1, len(O)):
             seq_prob *= A[state_seq[t-1], state_seq[t]]
-        # Probability of emissions
+        # Probability of emissions given by our emission matrix B
         for t in range(T):
             seq_prob *= B[state_seq[t], O[t]-1]
         total_prob += seq_prob
