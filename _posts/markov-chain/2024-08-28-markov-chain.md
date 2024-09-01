@@ -11,19 +11,19 @@ toc: false
 
 # What are we doing here ?
 
-Yeah, so recently I've been reading "The Man Who Solved The Market" by Gregory Zuckerman. Fun book about Jim Simons and his famously cracked Renaissance Technologies hedge fund. Unfortunately, it didn't make me better at trading lol
+Yeah, so recently I've been reading "_The Man Who Solved The Market_" by _Gregory Zuckerman_. Fun book about _Jim Simons_ and his famously cracked _Renaissance Technologies_ hedge fund. Unfortunately, it didn't make me better at trading lol
 
 <figure style="text-align: center;">
   <img src="/assets/img/mchain/rekt.png" alt="HL" style="width: 60%; max-width: 500px;">
   <figcaption style="font-style: italic;">Use my <a href="https://app.hyperliquid.xyz/join/CYRIL9227">ref link</a>👽</figcaption>
 </figure>
 
-**BUT** it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the IDA, the (top-secret) Institute for Defense Analyses, where Simons worked before starting his fund and was free to pursue his own research while trying to crack the Russian codes. He published a paper about predicting stock prices using Markov chains.<br>
+**BUT** it motivated me to learn more about some of the maths they used. Notably, Markov chains are mentioned a few times, first in the context of the _IDA_, the (top-secret) _Institute for Defense Analyses_, where _Simons_ worked before starting his fund and was free to pursue his own research while trying to crack the Russian codes. He published a paper about predicting stock prices using Markov chains.<br>
 
-Here is what Zuckerman says about it:
+Here is what _Zuckerman_ says about it:
 >Simons and the code-breakers proposed a similar approach to predicting stock prices, relying on a sophisticated mathematical tool called a hidden Markov model. Just as a gambler might guess an opponent’s mood based on his or her decisions, an investor might deduce a market’s state from its price movements.  Simons’s paper was crude, even for the late 1960s. He and his colleagues made some naive assumptions, such as that trades could be made “under ideal conditions,” which included no trading costs, even though the model required heavy, daily trading. Still, the paper can be seen as something of a trailblazer.
 
-Also, one of his early associate, Lenny Baum, was the co-author of the Baum-Welch algorithm, a method for training hidden Markov models.<br>
+Also, one of his early associate, _Lenny Baum_, was the co-author of the Baum-Welch algorithm, a method for training hidden Markov models.<br>
 
 OK. That's 2 instances. That's more than enough justification to write a refresher on Markov chains and hidden Markov chains and _try_ to implement some of the concepts in `Python`.
 
@@ -87,9 +87,22 @@ When dealing with Hidden Markov Models, we usually want to solve 3 things:
 2. **Decoding**: Given a model $$\lambda = (A, B, \pi)$$ and an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we choose a sequence of states $$Q = q_{1}, q_{2}, \ldots, q_{T}$$ that best explains the observation sequence ?
 3. **Learning**: Given an observation sequence $$O = O_{1}, O_{2}, \ldots, O_{T}$$, how do we adjust the model $$\lambda = (A, B, \pi)$$ to maximize the probability $$P(O \vert \lambda)$$ that the model generates the observation sequence ?
 
+Let's tackle these problems one by one.
+
 ## Likelihood
 
-Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence.
+Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence. So for instance, if we continue our example and we want to know how likely it is that the model generates the sequence $$3, 1, 3$$ **given** the hidden states _hot hot cold_.
+The computation would simply be $$P(3, 1, 3 \vert \text{hot hot cold}) = P(3 \vert \text{hot}) \times P(1 \vert \text{hot}) \times P(3 \vert \text{cold})$$ (thanks to Markov property), if we read our graph, we have $$P(3 \vert \text{hot}) = 0.1$$, $$P(1 \vert \text{hot}) = 0.6$$ and $$P(3 \vert \text{cold}) = 0.1$$, so the likelihood would be $$0.1 \times 0.6 \times 0.1 = 0.006$$.
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/emissions.png" alt="hmchain">
+</figure>
+
+The issue is that we don't actually know the hidden states, so we also need to compute the probability that the hidden states were indeed _hot hot cold_ which is given by :
+$$P(\text{hot hot cold} = P(\text{start} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{cold})$$
+$$P(\text{hot hot cold} = P(\text{hot} \vert \text{start})\times P(\text{hot} \vert \text{hot}) \times P(\text{cold} \vert \text{hot})$$
+$$P(\text{hot hot cold} = 0.1 \times 0.6 \times 0.1 = 0.006$$
+
+
 
 
 
