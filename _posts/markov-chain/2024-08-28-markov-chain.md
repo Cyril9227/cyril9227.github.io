@@ -91,24 +91,38 @@ Let's tackle these problems one by one.
 
 ## Likelihood
 
-Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence. So for instance, if we continue our example and we want to know how likely it is that the model generates the sequence $$3, 1, 3$$ **given** the hidden states _hot hot cold_.
-The computation would simply be $$P(3, 1, 3 \vert \text{hot hot cold}) = P(3 \vert \text{hot}) \times P(1 \vert \text{hot}) \times P(3 \vert \text{cold})$$ (thanks to Markov property), if we read our graph, we have $$P(3 \vert \text{hot}) = 0.1$$, $$P(1 \vert \text{hot}) = 0.6$$ and $$P(3 \vert \text{cold}) = 0.1$$, so the likelihood would be $$0.1 \times 0.6 \times 0.1 = 0.006$$.
+Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence. So for instance, if we continue our example and we want to know how likely it is that the model generates the sequence $$3, 1, 3$$ **given** the hidden states _hot hot cold_.<br>
+The computation would simply be $$P(3, 1, 3 \vert \text{hot hot cold}) = P(3 \vert \text{hot}) \times P(1 \vert \text{hot}) \times P(3 \vert \text{cold})$$ (thanks to Markov property), if we read the emission probabilities on our graph, we have $$P(3 \vert \text{hot}) = 0.4$$, $$P(1 \vert \text{hot}) = 0.2$$ and $$P(3 \vert \text{cold}) = 0.1$$, so the likelihood would be $$0.4 \times 0.2 \times 0.1 = 0.008$$.
 <figure style="text-align: center;">
   <img src="/assets/img/mchain/emissions.png" alt="hmchain">
 </figure>
 
 The issue is that we don't actually know the hidden states, so we also need to compute the probability that the hidden states were indeed _hot hot cold_ which is given by :
-$$P(\text{hot hot cold} = P(\text{start} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{cold})$$
-$$P(\text{hot hot cold} = P(\text{hot} \vert \text{start})\times P(\text{hot} \vert \text{hot}) \times P(\text{cold} \vert \text{hot})$$
-$$P(\text{hot hot cold} = 0.1 \times 0.6 \times 0.1 = 0.006$$
+$$P(\text{hot hot cold}) = P(\text{start} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{hot}) \times P(\text{hot} \rightarrow \text{cold})$$
+$$P(\text{hot hot cold}) = P(\text{hot} \vert \text{start})\times P(\text{hot} \vert \text{hot}) \times P(\text{cold} \vert \text{hot})$$
+$$P(\text{hot hot cold}) = 0.2 \times 0.6 \times 0.4 = 0.048$$
 
+If we piece everything together, we get can compute the joint probability of the observation sequence and the hidden states:
+$$P(3, 1, 3, \text{hot hot cold}) = P(3, 1, 3 \vert \text{hot hot cold}) \times P(\text{hot hot cold}) = 0.008 \times 0.048 = 0.000384$$
 
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/joint.png" alt="hmchain">
+<figcaption style="font-style: italic;">The joint probability of the observation sequence and the hidden states graphically</figcaption>
+</figure>
 
+In general, for an observation sequence $$O$$ and a list of hidden states $$Q$$, the joint probability is given by:
+$$P(O, Q) = P(O \vert Q) \times P(Q) = \prod_{t=1}^{T} P(O_{t} \vert Q_{t}) \times \prod_{t=1}^{T} P(Q_{t} \vert Q_{t-1})$$
 
+That's cool, but that's only for one possible sequence of hidden states. We need to compute this for all possible sequences and sum them up to get the actual likelihood of the observation sequence:
+$$P(O) = \sum_{Q} P(O, Q) = \sum{Q} P(O \vert Q) \times P(Q)$$
 
-### Forward Algorithm
+For us : $$P(313) = P(313, \text{cold, cold, cold}) \dots P(313, \text{hot, hot, cold}) \dots  P(313, \text{hot, hot, hot})$$
 
-Blabla the maths we're trying to do
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/nerd" alt="hmchain">
+</figure>
+
+We can do this naive approach in python :
 
 ```python
 
@@ -120,24 +134,32 @@ A = np.array([[0.5, 0.5],
 
 O = [3, 1, 3]  # Observation sequence
 
-# 2 x 3 matrix because we have 2 states and 3 possible observations encoded as 1, 2, 3
+# 2 x 3 matrix because we have 2 states (1st state Cold, 2nd Hot) and 3 possible observations encoded as 1, 2, 3 (number of icecreams)
 B = np.array([[0.5, 0.4, 0.1], 
               [0.2, 0.4, 0.4]])  # Emission probabilities
 
 
 ```
 
-Naive example is what we described above. We enumerate all possible state sequences and compute the probability of each one. This is not efficient at all, but it's a good way to understand the problem.
-
 ```python
 import itertools
 def naive_approach(A, B, pi, O):
+    """
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x T)
+    pi: Initial state proability distribution (N)
+    O: Observation sequence (length T)
+    
+    Enumerate all possible state sequences and compute the total probability by summing the probabilities of each sequence
+    """
+    N = len(A)       # Number of states
+    T = len(O)       # Length of observation sequence
     total_prob = 0
     # Enumerate all possible state sequences
-    for state_seq in itertools.product(range(len(A)), repeat=len(O)):
+    for state_seq in itertools.product(range(N), repeat=T):
         seq_prob = pi[state_seq[0]]  # Initial state probability
         # Probability of state transitions
-        for t in range(1, T):
+        for t in range(1, len(O)):
             seq_prob *= A[state_seq[t-1], state_seq[t]]
         # Probability of emissions
         for t in range(T):
@@ -145,8 +167,16 @@ def naive_approach(A, B, pi, O):
         total_prob += seq_prob
     return total_prob
 
-
+# naive_approach(A, B, pi, O)
+# >> 0.0285
 ```
+
+
+### Forward Algorithm
+
+Blabla the maths we're trying to do
+
+
 
 More efficient way is to use the forward algorithm. The forward algorithm is a dynamic programming algorithm that computes the probability of an observation sequence given a Hidden Markov Model. It's based on the Markov property and the conditional independence of the observations given the state of the system.
 
