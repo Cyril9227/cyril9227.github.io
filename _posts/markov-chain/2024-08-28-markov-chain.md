@@ -41,27 +41,11 @@ A Markov chain is usually represented by a graph :
   <figcaption style="font-style: italic;">Each node is a possible state and each edge represents the transition probability.</figcaption>
 </figure>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Highlight Text</title>
-    <style>
-        .highlight-box {
-            border: 2px solid #000; /* Border color and thickness */
-            padding: 10px; /* Space between the text and the border */
-            margin: 10px 0; /* Space above and below the box */
-            border-radius: 5px; /* Rounded corners */
-        }
-    </style>
-</head>
-<body>
-    <div class="highlight-box">
-        {% raw %}
-        And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a\_{ij}$$ represents the probability of moving from state
-        $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q\_{1} \ldots q\_{n}$$
-        {% endraw %}
-    </div>
-</body>
+
+And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
+$$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$
+
+<span class="highlight">And is entirely described by 3 components: an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state $$i$$ to state $$j$$ and a list $$Q$$ of possible states $$q_{1} \ldots q_{n}$$.</span>
 
 
 If we circle back to our example, the list of our possible states is $$Q = \{HOT, COLD, WARM\}$$, the initial probability distribution could be $$\pi = [0.1, 0.7, 0.2]$$ and, by reading the graph, the transition matrix $$A$$ would be then:
@@ -92,27 +76,9 @@ Imagine now that instead of directly knowing the weather, you only get to know h
   <figcaption style="font-style: italic;">The hidden states are represented by the circles and the possible observations with their associated probabilities by the squares.</figcaption>
 </figure>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Highlight Text</title>
-    <style>
-        .highlight-box {
-            border: 2px solid #000; /* Border color and thickness */
-            padding: 10px; /* Space between the text and the border */
-            margin: 10px 0; /* Space above and below the box */
-            border-radius: 5px; /* Rounded corners */
-        }
-    </style>
-</head>
-<body>
-    <div class="highlight-box">
-        {% raw %}
-        A hidden Markov chain is entirely described by 4 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
+
+A hidden Markov chain is entirely described by 4 components : an initial probability distribution $$\pi$$, a transition probability matrix $$A$$ where each $$a_{ij}$$ represents the probability of moving from state
 $$i$$ to state $$j$$, a list $$Q$$ of possible states $$q_{1} ... q_{n}$$ and $$B$$, the emission probability matrix where each $$b_{ij}$$ represents the probability of observing $$O_{j}$$ given that the system is in state $$q_{i}$$
-        {% endraw %}
-    </div>
-</body>
 
 ## The 3 fundamental problems
 
@@ -124,7 +90,9 @@ When dealing with Hidden Markov Models, we usually want to solve 3 things:
 
 ## Likelihood
 
-Blabla + example
+Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence.
+
+
 
 ### Forward Algorithm
 
