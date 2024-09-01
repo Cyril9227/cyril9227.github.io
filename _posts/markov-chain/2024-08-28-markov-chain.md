@@ -116,13 +116,13 @@ $$P(O, Q) = P(O \vert Q) \times P(Q) = \prod_{t=1}^{T} P(O_{t} \vert Q_{t}) \tim
 That's cool, but that's only for one possible sequence of hidden states. We need to compute this for all possible sequences and sum them up to get the actual likelihood of the observation sequence:
 $$P(O) = \sum_{Q} P(O, Q) = \sum{Q} P(O \vert Q) \times P(Q)$$
 
-For us : $$P(313) = P(313, \text{cold, cold, cold}) \dots P(313, \text{hot, hot, cold}) \dots  P(313, \text{hot, hot, hot})$$
+For us : $$P(313) = P(313, \text{cold, cold, cold}) + \dots + P(313, \text{hot, hot, cold}) + \dots + P(313, \text{hot, hot, hot})$$
 
 <figure style="text-align: center;">
   <img src="/assets/img/mchain/nerd.png" alt="hmchain">
 </figure>
 
-We can do this naive approach in python :
+Let's do it in `Python`:
 
 ```python
 
@@ -172,24 +172,23 @@ def naive_approach(pi, O, A, B):
 # >> 0.0285
 ```
 
+For long sequences, this approach is not feasible but smart people came up with the **Forward Algorithm**
 
 ### Forward Algorithm
 
-Blabla the maths we're trying to do
-
-
-
-More efficient way is to use the forward algorithm. The forward algorithm is a dynamic programming algorithm that computes the probability of an observation sequence given a Hidden Markov Model. It's based on the Markov property and the conditional independence of the observations given the state of the system.
+The forward algorithm is a dynamic programming algorithm that computes the probability of an observation sequence given a Hidden Markov Model.
 
 ```python
 
 import numpy as np
-def forward_algorithm(A, B, pi, O):
+def forward_algorithm(pi, O, A, B):
     """
-    A: Transition probability matrix (N x N)
-    B: Emission probability matrix (N x T)
     pi: Initial state proability distribution (N)
     O: Observation sequence (length T)
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x T)
+    
+    Iterate over the observation sequence and compute the forward probabilities
     """
     N = len(A)       # Number of states
     T = len(O)       # Length of observation sequence
@@ -200,12 +199,8 @@ def forward_algorithm(A, B, pi, O):
     for t in range(1, T):
         for s in range(N):
             forward[s, t] = np.sum(forward[:, t - 1] * A[:, s] * B[s, O[t] - 1])
-    return forward, np.sum(forward[:, -1])
-
-
-
-
-
+    total_prob = np.sum(forward[:, -1])
+    return total_prob
 
 ```
 
