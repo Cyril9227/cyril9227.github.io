@@ -179,7 +179,7 @@ For long sequences, this approach is not feasible but smart people came up with 
 The forward algorithm is a dynamic programming algorithm, that is, an algorithm that uses a table to store
 intermediate values as it builds up the final probability of the observation sequence.
 
-Instead of enumerating all possible state sequences, we iterate over the observation sequence and compute the forward probabilities. The forward probability at time $$t$$ and state $$j$$ is the probability of being in state $$s$$ at time $$t$$ and observing the sequence $$O_{1}, O_{2}, \ldots, O_{t}$$, it is noted by $$\alpha_{t}(j)$$.
+Instead of enumerating all possible state sequences, we iterate over the observation sequence and compute the forward probabilities. The forward probability at time $$t$$ and state $$j$$ is the probability of being in state $$j$$ at time $$t$$ and observing the sequence $$O_{1}, O_{2}, \ldots, O_{t}$$, it is noted $$\alpha_{t}(j)$$.
 
 <figure style="text-align: center;">
   <img src="/assets/img/mchain/forward.png" alt="forward">
@@ -192,6 +192,13 @@ $$\alpha_{1}(j) = \pi_{j} \times B_{j, O_{1}}$$
 
 Then, for each time step $$t$$, we compute the forward probabilities for each state $$j$$ by summing the probabilities of all paths that lead to state $$j$$ at time $$t$$:
 $$\alpha_{t}(j) = \sum_{i=1}^{N} \alpha_{t-1}(i) \times A_{i, j} \times B_{j, O_{t}}$$
+
+For a single node, it looks like this:
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/forward_single.png" alt="forward_single">
+</figure>
+
+A simple implementation in `Python` would look like this where the $$\alpha$$ matrix is recursively computed:
 
 ```python
 
@@ -207,16 +214,19 @@ def forward_algorithm(pi, O, A, B):
     """
     N = len(A)       # Number of states
     T = len(O)       # Length of observation sequence
-
-    forward = np.zeros((N, T))
-    forward[:, 0] = pi * B[:, O[0] - 1]
     
+    # Initial state probability * emission probability of first observation
+    forward = np.zeros((N, T))
+    forward[:, 0] = pi * B[:, O[0] - 1]  # python is 0 indexed so -1 each val
+    
+    # Compute the forward probabilities for each state at each time step
     for t in range(1, T):
         for s in range(N):
             forward[s, t] = np.sum(forward[:, t - 1] * A[:, s] * B[s, O[t] - 1])
-    total_prob = np.sum(forward[:, -1])
+    total_prob = np.sum(forward[:, -1])  # Final probability is just the sum of the alpha_last(j) for all states j
     return total_prob
-
+# forward_algorithm(pi, O, A, B)
+# >> 0.0285
 ```
 There is a nice python package called `hmmlearn` that deals with Markov processes, we can verify our results like so :
 ```python
@@ -234,9 +244,67 @@ print(total_prob)
 # >> 0.0285
 ```
 
+## Decoding
 
+Now that we know how to compute the likelihood of a sequence, we're interested in finding the most likely sequence of hidden states that generated the observation sequence.<br>
+To continue with our example, we want to find the most likely sequence of hidden states that generated the observation sequence $$3, 1, 3$$ (spoilers : it's _hot hot hot_).
 
-## Viterbi Algorithm
+What we could do, is to compute the likelihood of all possible sequences of hidden states and choose the one with the highest probability. But that's not great. Instead, we can use the **Viterbi Algorithm**, another dynamic programming method.
+
+### Viterbi Algorithm
+
+If I understand correctly, the Viterbi algorithm is identical to the forward algorithm but instead of summing the probabilities of all paths that lead to state $$j$$ at time $$t$$, we take the maximum probability of all paths that lead to state $$j$$ at time $$t$$.
+Of course, we also need to keep track of the path that led to the maximum probability, which is done by storing the most likely path at each time step.
+
+There is a backtracking step at the end to find the most likely path, this is done by following the most likely path at each time step, i.e : $$\text{argmax}(\alpha_{t-1}(i) \times A_{i, j} \times B_{j, O_{t}})$$
+
+A simple implementation in `Python` would look like this:
+
+```python
+def viterbi_algorithm(pi, O, A, B):
+    """
+    pi: Initial state proability distribution (N)
+    O: Observation sequence (length T)
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x T)
+    
+    Iterate over the observation sequence and compute the forward probabilities
+    """
+    N = len(A)       # Number of states
+    T = len(O)       # Length of observation sequence
+    
+    viterbi = np.zeros((N, T))
+    backtrack = np.zeros((N, T))
+    
+    viterbi[:, 0] = pi * B[:, O[0] - 1]  # python is 0 indexed so -1 each val
+    backtrack[:, 0] = 0
+    
+    for t in range(1, T):
+        for s in range(N):
+            viterbi[s, t] = np.max(viterbi[:, t - 1] * A[:, s] * B[s, O[t] - 1])
+            backtrack[s, t] = np.argmax(viterbi[:, t - 1] * A[:, s] * B[s, O[t] - 1])
+    best_path_prob = np.max(viterbi[:, -1])
+    
+    # Backtrack to find the most likely path
+    best_path = np.zeros(T, dtype=int)
+    best_path[-1] = np.argmax(forward[:, -1])
+    for t in range(T - 2, -1, -1):
+        best_path[t] = backtrack[best_path[t+1], t+1]
+    
+    return best_path_prob, best_path
+
+# viterbi_algorithm(pi, O, A, B)
+# >> 0.012800000000000004, array([1, 0, 1])
+```
+
+We can verify our results with the `hmmlearn` package (using the same model as above):
+
+```python
+log_prob, best_path = gen_model.decode(O_, algorithm="viterbi")
+print(np.exp(log_prob), best_path)
+# >> 0.012799999999999997 [1 0 1]
+
+```
 
 ## Putting it all together
 
