@@ -195,7 +195,7 @@ $$\alpha_{t}(j) = \sum_{i=1}^{N} \alpha_{t-1}(i) \times A_{i, j} \times B_{j, O_
 
 For a single node, it looks like this:
 <figure style="text-align: center;">
-  <img src="/assets/img/mchain/forward_single.png" alt="forward_single">
+  <img src="/assets/img/mchain/forward_singe.png" alt="forward_single">
 </figure>
 
 A simple implementation in `Python` would look like this where the $$\alpha$$ matrix is recursively computed:
