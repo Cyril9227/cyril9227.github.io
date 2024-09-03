@@ -91,7 +91,7 @@ Let's tackle these problems one by one.
 
 ## Likelihood
 
-Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence. So for instance, if we continue our example and we want to know how likely it is that the model generates the sequence $$3, 1, 3$$ **given** the hidden states _hot hot cold_.<br>
+Quite easy to understand, we just want to know how likely it is that the model generates a given observation sequence.<br> So for instance, if we continue our example and we want to know how likely it is that the model generates the sequence $$3, 1, 3$$ **given** the hidden states _hot hot cold_.<br>
 The computation would simply be $$P(3, 1, 3 \vert \text{hot hot cold}) = P(3 \vert \text{hot}) \times P(1 \vert \text{hot}) \times P(3 \vert \text{cold})$$ (thanks to Markov property), if we read the emission probabilities on our graph, we have $$P(3 \vert \text{hot}) = 0.4$$, $$P(1 \vert \text{hot}) = 0.2$$ and $$P(3 \vert \text{cold}) = 0.1$$, so the likelihood would be $$0.4 \times 0.2 \times 0.1 = 0.008$$.
 <figure style="text-align: center;">
   <img src="/assets/img/mchain/emissions.png" alt="hmchain">
@@ -179,6 +179,20 @@ For long sequences, this approach is not feasible but smart people came up with 
 The forward algorithm is a dynamic programming algorithm, that is, an algorithm that uses a table to store
 intermediate values as it builds up the final probability of the observation sequence.
 
+Instead of enumerating all possible state sequences, we iterate over the observation sequence and compute the forward probabilities. The forward probability at time $$t$$ and state $$j$$ is the probability of being in state $$s$$ at time $$t$$ and observing the sequence $$O_{1}, O_{2}, \ldots, O_{t}$$, it is noted by $$\alpha_{t}(j)$$.
+
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/forward.png" alt="forward">
+</figure>
+
+It is done simply by following the different paths in the graph and summing the probabilities of each path.
+
+The very first step is to compute the forward probabilities at time $$t = 1$$, which is simply the product of the initial state probability and the emission probability of the first observation:
+$$\alpha_{1}(j) = \pi_{j} \times B_{j, O_{1}}$$
+
+Then, for each time step $$t$$, we compute the forward probabilities for each state $$j$$ by summing the probabilities of all paths that lead to state $$j$$ at time $$t$$:
+$$\alpha_{t}(j) = \sum_{i=1}^{N} \alpha_{t-1}(i) \times A_{i, j} \times B_{j, O_{t}}$$
+
 ```python
 
 import numpy as np
@@ -204,6 +218,23 @@ def forward_algorithm(pi, O, A, B):
     return total_prob
 
 ```
+There is a nice python package called `hmmlearn` that deals with Markov processes, we can verify our results like so :
+```python
+# pip install hmmlearn
+from hmmlearn import hmm
+gen_model = hmm.CategoricalHMM(n_components=2)  # 2 hidden states
+gen_model.startprob_ = pi  # Initial state probability distribution
+gen_model.transmat_ = A  # Transition probability matrix
+gen_model.emissionprob_ = B  # Emission probability matrix
+O_ = np.array(O) - 1  # python is 0 indexed so -1 each val
+O_ = O_.reshape(-1, 1)
+log_prob = gen_model.score_samples(O_)  # returns the log probability
+total_prob = np.exp(log_prob[0])
+print(total_prob)
+# >> 0.0285
+```
+
+
 
 ## Viterbi Algorithm
 
