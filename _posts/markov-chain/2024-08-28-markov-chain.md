@@ -247,16 +247,14 @@ print(total_prob)
 ## Decoding
 
 Now that we know how to compute the likelihood of a sequence, we're interested in finding the most likely sequence of hidden states that generated the observation sequence.<br>
-To continue with our example, we want to find the most likely sequence of hidden states that generated the observation sequence $$3, 1, 3$$ (spoilers : it's _hot hot hot_).
+To continue with our example, we want to find the most likely sequence of hidden states that generated the observation sequence $$3, 1, 3$$ (spoilers : it's _hot cold hot_).
 
 What we could do, is to compute the likelihood of all possible sequences of hidden states and choose the one with the highest probability. But that's not great. Instead, we can use the **Viterbi Algorithm**, another dynamic programming method.
 
 ### Viterbi Algorithm
 
 If I understand correctly, the Viterbi algorithm is identical to the forward algorithm but instead of summing the probabilities of all paths that lead to state $$j$$ at time $$t$$, we take the maximum probability of all paths that lead to state $$j$$ at time $$t$$.
-Of course, we also need to keep track of the path that led to the maximum probability, which is done by storing the most likely path at each time step.
-
-There is a backtracking step at the end to find the most likely path, this is done by following the most likely path at each time step, i.e : $$\text{argmax}(\alpha_{t-1}(i) \times A_{i, j} \times B_{j, O_{t}})$$
+Of course, we also need to keep track of the path that led to the maximum probability, which is done with a backtracking step at the end to find the most likely path, i.e following the most likely path at each time step, i.e : $$\text{argmax}(\alpha_{t-1}(i) \times A_{i, j} \times B_{j, O_{t}})$$
 
 A simple implementation in `Python` would look like this:
 
@@ -300,17 +298,20 @@ def viterbi_algorithm(pi, O, A, B):
 We can verify our results with the `hmmlearn` package (using the same model as above):
 
 ```python
-log_prob, best_path = gen_model.decode(O_, algorithm="viterbi")
+log_prob, best_path = gen_model.decode(O_, algorithm="viterbi")  # log prob because of numerical stability n what not
 print(np.exp(log_prob), best_path)
 # >> 0.012799999999999997 [1 0 1]
 
 ```
+## Training 
 
-## Putting it all together
+### Baum-Welch Algorithm
+
+## Putting it all together : concrete example on stock prices
 
 ## Am I rich yet ?
 
-**No lol**
+**No lol, thanks for reading**
 
 # Resources
 
