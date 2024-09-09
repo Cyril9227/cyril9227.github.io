@@ -279,8 +279,9 @@ def viterbi_algorithm(pi, O, A, B):
     
     for t in range(1, T):
         for s in range(N):
-            viterbi[s, t] = np.max(viterbi[:, t - 1] * A[:, s] * B[s, O[t] - 1])
-            backtrack[s, t] = np.argmax(viterbi[:, t - 1] * A[:, s] * B[s, O[t] - 1])
+            delta = viterbi[:, t - 1] * A[:, s] * B[s, O[t] - 1]
+            viterbi[s, t] = np.max(delta)
+            backtrack[s, t] = np.argmax(delta)
     best_path_prob = np.max(viterbi[:, -1])
     
     # Backtrack to find the most likely path
@@ -305,7 +306,83 @@ print(np.exp(log_prob), best_path)
 ```
 ## Training 
 
+Goal is to learn the matrices $$A$$ and $$B$$, we do this with the **Baum-Welch Algorithm**, an iterative method and special case of **Expectation-Maximization**. 
+First we need to define the backward probabilities, which are the probability of observing the sequence $$O_{t+1}, O_{t+2}, \ldots, O_{T}$$ given that we are in state $$i$$ at time $$t$$, noted $$\beta_{t}(i)$$, the computation is identical to the forward probabilities but in reverse.
+
+<figure style="text-align: center;">
+  <img src="/assets/img/mchain/backward.png" alt="backward">
+</figure>
+
+
+```python
+def backward_algorithm(pi, O, A, B):
+    """
+    pi: Initial state proability distribution (N)
+    O: Observation sequence (length T)
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x T)
+    
+    Iterate over the observation sequence and compute the backward probabilities
+    """
+    N = len(A)       # Number of states
+    T = len(O)       # Length of observation sequence
+    
+    backward = np.zeros((N, T))
+    backward[:, -1] = 1  # Initialization
+    
+    for t in range(T - 2, -1, -1):
+        for s in range(N):
+            backward[s, t] = np.sum(backward[:, t + 1] * A[s, :] * B[:, O[t + 1] - 1])
+    return backward
+
+```
+
 ### Baum-Welch Algorithm
+
+```python
+
+def baum_welch(pi, O, A, B, n_iter=100):
+    """
+    pi: Initial state proability distribution (N)
+    O: Observation sequence (length T)
+    A: Transition probability matrix (N x N)
+    B: Emission probability matrix (N x T)
+    n_iter: Number of iterations
+    
+    Train the model using the Baum-Welch algorithm
+    """
+    N = len(A)       # Number of states
+    T = len(O)       # Length of observation sequence
+    
+    for _ in range(n_iter):
+        # Compute forward and backward probabilities
+        forward = forward_algorithm(pi, O, A, B)
+        backward = backward_algorithm(pi, O, A, B)
+        
+        # Compute the gamma probabilities
+        gamma = forward * backward / np.sum(forward * backward, axis=0)
+        
+        # Compute the xi probabilities
+        xi = np.zeros((N, N, T - 1))
+        for t in range(T - 1):
+            for i in range(N):
+                for j in range(N):
+                    xi[i, j, t] = forward[i, t] * A[i, j] * B[j, O[t + 1] - 1] * backward[j, t + 1]
+            xi[:, :, t] /= np.sum(xi[:, :, t])
+        
+        # Update the model parameters
+        pi = gamma[:, 0]
+        for i in range(N):
+            for j in range(N):
+                A[i, j] = np.sum(xi[i, j, :]) / np.sum(gamma[i, :-1])
+        
+        for j in range(N):
+            for k in range(B.shape[1]):
+                B[j, k] = np.sum(gamma[j, O == k]) / np.sum(gamma[j, :])
+    
+    return pi, A, B
+
+```
 
 ## Putting it all together : concrete example on stock prices
 
