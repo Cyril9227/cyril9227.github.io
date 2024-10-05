@@ -16,9 +16,9 @@ Because <a href="https://x.com/yacineMTB/status/1841954975745757687">it's funny<
 # How ?
 
 The whole thing is actually quite simple with <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker">Google Face Landmarker</a>, which is basically 3 models packaged together: 
-- Face detection model: detects the presence of faces with a few key facial landmarks (https://arxiv.org/abs/1512.02325)
+- <a href="https://arxiv.org/abs/1512.02325">Face detection model</a>: detects the presence of faces with a few key facial landmarks 
 - Face mesh model: adds a complete mapping of the face. The model outputs an estimate of 478 3-dimensional face landmarks.
-- Blendshape prediction model: receives output from the face mesh model predicts 52 blendshape scores, which are coefficients representing facial different expressions.
+- Blendshape prediction model: receives output from the face mesh model predicts 52 "blendshape" scores, which are coefficients representing different facial expressions.
 
 We just run this on a video with a secret soyjack algorithm and voilà, we can detect soyjacks in real time (from your webcam !!!)
 
@@ -205,8 +205,9 @@ if __name__ == "__main__":
 
 That's pretty much it. If I'm not lazy I'll package it into an app and add a simple frontend and maybe more options and landmarks. 
 <br>
-Happy soyjacking !
-
+<br>
+Happy soyjacking !!!
+<br>
 <figure style="text-align: center;">
   <img src="/assets/img/soyjack/soyjack.gif" alt="soygif">
 </figure>
