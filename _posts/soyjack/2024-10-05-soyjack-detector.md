@@ -1,6 +1,6 @@
 ---
 title: "Soyjack Detector"
-date: 2024-05-10 08:00:00 +00:00
+date: 2024-10-05 08:00:00 +00:00
 tags: [coding, ai]
 toc: false
 ---
@@ -29,11 +29,12 @@ Need to install `mediapipe` and download the packaged models:
 ```bash
 pip install -q mediapipe
 ```
+<br>
 ```bash
-!wget -O face_landmarker.task -q https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
+wget -O face_landmarker.task -q https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
 ```
 
-Then we can define some helper function to nicely draw the detected landmarks and face mesh:
+Then we can define some helper function to nicely draw the detected landmarks and face mesh on the original image:
 
 ```python
 
@@ -80,7 +81,7 @@ def draw_landmarks_on_image(rgb_image, detection_result):
     return annotated_image
 ```
 
-The actual inference model can be simply created from the downloaded model like so : 
+The actual inference model can simply be created from the downloaded model like so : 
 
 ```python
 from mediapipe.tasks import python
@@ -93,21 +94,17 @@ options = vision.FaceLandmarkerOptions(base_options=base_options,
                                        num_faces=1)
 detector = vision.FaceLandmarker.create_from_options(options)
 ```
-The main loop is quite simple, we ingest frames from the webcam feed and run the model on each frame:
+The main loop is quite simple, we ingest frames from the webcam feed and run the model on each frame (model is designed for edge devices so should be quite smooth, it is on my end):
 
 ```python
-
 import cv2
 import mediapipe as mp
 
 def setup_webcam(camera_id=0, width=800, height=800):
-    """
-    Initialize the webcam with specified parameters
-    """
+    # Can adjust the width and height to fit your screen
     cap = cv2.VideoCapture(camera_id)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-    
     if not cap.isOpened():
         raise IOError("Cannot open webcam")
     return cap
@@ -167,6 +164,7 @@ def main(privacy=False):
             brows_up = 0
             smile_wide = 0
             try:
+                # Top secret
                 for d in detection_result.face_blendshapes[0]:
                     if d.category_name == 'jawOpen':
                         jaw_open = d.score
@@ -205,4 +203,6 @@ if __name__ == "__main__":
     main(privacy=USE_PRIVACY_MODE)
 ```
 
-That's pretty much it. If I'm not lazy I'll package it into an app and add a simple frontend and maybe more options. Happy soyjacking !
+That's pretty much it. If I'm not lazy I'll package it into an app and add a simple frontend and maybe more options and landmarks. 
+<br>
+Happy soyjacking !
