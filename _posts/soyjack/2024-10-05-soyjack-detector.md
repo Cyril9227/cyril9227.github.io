@@ -16,7 +16,7 @@ Because <a href="https://x.com/yacineMTB/status/1841954975745757687">it's funny<
 # How ?
 
 The whole thing is actually quite simple with <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker">Google Face Landmarker</a>, which is basically 3 models packaged together: 
-- Face detection model: detects the presence of faces with a few key facial landmarks.
+- Face detection model: detects the presence of faces with a few key facial landmarks (https://arxiv.org/abs/1512.02325)
 - Face mesh model: adds a complete mapping of the face. The model outputs an estimate of 478 3-dimensional face landmarks.
 - Blendshape prediction model: receives output from the face mesh model predicts 52 blendshape scores, which are coefficients representing facial different expressions.
 
@@ -94,7 +94,7 @@ options = vision.FaceLandmarkerOptions(base_options=base_options,
                                        num_faces=1)
 detector = vision.FaceLandmarker.create_from_options(options)
 ```
-The main loop is quite simple, we ingest frames from the webcam feed and run the model on each frame (model is designed for edge devices so should be quite smooth, it is on my end):
+The main loop is quite simple (press Q to exit), we ingest frames from the webcam feed and run the model on each frame (model is designed for edge devices so should be quite smooth, it is on my end):
 
 ```python
 import cv2
@@ -206,3 +206,7 @@ if __name__ == "__main__":
 That's pretty much it. If I'm not lazy I'll package it into an app and add a simple frontend and maybe more options and landmarks. 
 <br>
 Happy soyjacking !
+
+<figure style="text-align: center;">
+  <img src="/assets/img/soyjack/soyjack.gif" alt="soygif">
+</figure>
