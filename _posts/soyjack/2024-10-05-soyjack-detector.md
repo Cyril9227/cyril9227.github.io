@@ -22,6 +22,8 @@ The whole thing is actually quite simple with <a href="https://ai.google.dev/edg
 
 We just run this on a video with a secret soyjack algorithm and voilà, we can detect soyjacks in real time (from your webcam !!!)
 
+For extra spice, we can also add a <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker">hands detector</a> which works exactly the same. 
+
 # Code
 
 Need to install `mediapipe` and download the packaged models:
@@ -34,77 +36,120 @@ pip install -q mediapipe
 wget -O face_landmarker.task -q https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
 ```
 
+<br>
+```bash
+wget -O hand_landmarker.task -q https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task
+```
+
+
 Then we can define some helper function to nicely draw the detected landmarks and face mesh on the original image:
 
 ```python
-
-import numpy as np
 from mediapipe import solutions
 from mediapipe.framework.formats import landmark_pb2
 
-def draw_landmarks_on_image(rgb_image, detection_result):
-    
+def landmarks_to_proto(landmarks):
+    """Convert landmarks to protocol buffer format."""
+    proto = landmark_pb2.NormalizedLandmarkList()
+    proto.landmark.extend([
+        landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) 
+        for landmark in landmarks
+    ])
+    return proto
+
+def draw_landmarks_with_style(image, landmark_list, connections, landmark_style=None, connection_style=None):
+    """Draw landmarks with specified styles."""
+    solutions.drawing_utils.draw_landmarks(
+        image=image,
+        landmark_list=landmark_list,
+        connections=connections,
+        landmark_drawing_spec=landmark_style,
+        connection_drawing_spec=connection_style
+    )
+
+def draw_face_landmarks_on_image(rgb_image, detection_result):
+    """Draw face landmarks, mesh, contours, and irises on the image."""
     face_landmarks_list = detection_result.face_landmarks
     annotated_image = np.copy(rgb_image)
-
-    # Loop through the detected faces to visualize.
-    for idx in range(len(face_landmarks_list)):
-        face_landmarks = face_landmarks_list[idx]
-
-    face_landmarks_proto = landmark_pb2.NormalizedLandmarkList()
-    face_landmarks_proto.landmark.extend([
-    landmark_pb2.NormalizedLandmark(x=landmark.x, y=landmark.y, z=landmark.z) for landmark in face_landmarks])
     
-    # Draw the face landmarks and mesh
-    solutions.drawing_utils.draw_landmarks(
-        image=annotated_image,
-        landmark_list=face_landmarks_proto,
-        connections=mp.solutions.face_mesh.FACEMESH_TESSELATION,
-        landmark_drawing_spec=None,
-        connection_drawing_spec=mp.solutions.drawing_styles
-        .get_default_face_mesh_tesselation_style())
-    solutions.drawing_utils.draw_landmarks(
-        image=annotated_image,
-        landmark_list=face_landmarks_proto,
-        connections=mp.solutions.face_mesh.FACEMESH_CONTOURS,
-        landmark_drawing_spec=None,
-        connection_drawing_spec=mp.solutions.drawing_styles
-        .get_default_face_mesh_contours_style())
-    solutions.drawing_utils.draw_landmarks(
-        image=annotated_image,
-        landmark_list=face_landmarks_proto,
-        connections=mp.solutions.face_mesh.FACEMESH_IRISES,
-          landmark_drawing_spec=None,
-          connection_drawing_spec=mp.solutions.drawing_styles
-          .get_default_face_mesh_iris_connections_style())
+    for face_landmarks in face_landmarks_list:
+        face_proto = landmarks_to_proto(face_landmarks)
+        
+        # Define face mesh drawing configurations
+        mesh_styles = [
+            (solutions.face_mesh.FACEMESH_TESSELATION,
+             solutions.drawing_styles.get_default_face_mesh_tesselation_style()),
+            (solutions.face_mesh.FACEMESH_CONTOURS,
+             solutions.drawing_styles.get_default_face_mesh_contours_style()),
+            (solutions.face_mesh.FACEMESH_IRISES,
+             solutions.drawing_styles.get_default_face_mesh_iris_connections_style())
+        ]
+        
+        # Draw all face mesh components
+        for connections, style in mesh_styles:
+            draw_landmarks_with_style(
+                annotated_image, 
+                face_proto, 
+                connections, 
+                connection_style=style
+            )
+    
+    return annotated_image
 
+def draw_hands_landmarks_on_image(rgb_image, detection_result):
+    """Draw hand landmarks and connections on the image."""
+    hand_landmarks_list = detection_result.hand_landmarks
+    annotated_image = np.copy(rgb_image)
+    
+    for hand_landmarks in hand_landmarks_list:
+        hand_proto = landmarks_to_proto(hand_landmarks)
+        
+        draw_landmarks_with_style(
+            annotated_image,
+            hand_proto,
+            solutions.hands.HAND_CONNECTIONS,
+            landmark_style=solutions.drawing_styles.get_default_hand_landmarks_style(),
+            connection_style=solutions.drawing_styles.get_default_hand_connections_style()
+        )
+    
     return annotated_image
 ```
 
-The actual inference model can simply be created from the downloaded model like so : 
+The actual inference models can simply be created from the downloaded model like so : 
 
 ```python
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+# FACE DETECTION
 base_options = python.BaseOptions(model_asset_path='face_landmarker.task')
 options = vision.FaceLandmarkerOptions(base_options=base_options,
-                                       output_face_blendshapes=True,
-                                       output_facial_transformation_matrixes=True,
+                                       output_face_blendshapes=True,  # Needed to get facial expressions scores
+                                       output_facial_transformation_matrixes=False,
                                        num_faces=1)
-detector = vision.FaceLandmarker.create_from_options(options)
+detector_face = vision.FaceLandmarker.create_from_options(options)
+
+
+# HANDS DETECTION
+base_options = python.BaseOptions(model_asset_path='hand_landmarker.task')
+options = vision.HandLandmarkerOptions(base_options=base_options,
+                                       num_hands=2)
+detector_hand = vision.HandLandmarker.create_from_options(options)
 ```
-The main loop is quite simple (press Q to exit), we ingest frames from the webcam feed and run the model on each frame (model is designed for edge devices so should be quite smooth, it is on my end):
+
+We need to define a few more helper functions for the webcam stuff and text overlay:
 
 ```python
 import cv2
-import mediapipe as mp
 
 def setup_webcam(camera_id=0, width=800, height=800):
-    # Can adjust the width and height to fit your screen
+    """
+    Initialize the webcam with specified parameters
+    """
     cap = cv2.VideoCapture(camera_id)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    
     if not cap.isOpened():
         raise IOError("Cannot open webcam")
     return cap
@@ -131,9 +176,13 @@ def add_text_to_frame(frame, text, position=None):
                 font_scale,
                 font_color,
                 thickness)
-    
     return frame
+```
 
+The main loop is quite simple (press Q to exit), we just ingest frames from the webcam feed and run the models on each frame :
+
+```python
+import mediapipe as mp
 
 def main(privacy=False):
     cap = setup_webcam()
@@ -148,24 +197,27 @@ def main(privacy=False):
             # Convert the webcam frame into correct format and run inference
             rgb_image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             mp_image = mp.Image(mp.ImageFormat.SRGB, data=rgb_image)
-            detection_result = detector.detect(mp_image)
+            
+            detection_result_face = detector_face.detect(mp_image)
+            detection_result_hands = detector_hand.detect(mp_image)
+            
             
             # If turned on, only display the detected face landmarks
             if privacy:
                 frame = np.zeros(frame.shape)
             
             # Draw detected landmarks on the webcam frame
-            annotated_image = draw_landmarks_on_image(frame, detection_result)
+            annotated_image = draw_face_landmarks_on_image(frame, detection_result_face)
+            annotated_image = draw_hands_landmarks_on_image(annotated_image, detection_result_hands)
             
             # Top secret algorithm to detect a soyface based on the model outputs
-            text = "NO SOYJACK DETECTED !!!"
+            text = "No soyjack detected ......"
             jaw_open = 0
             eyes_wide = 0
             brows_up = 0
             smile_wide = 0
             try:
-                # Top secret
-                for d in detection_result.face_blendshapes[0]:
+                for d in detection_result_face.face_blendshapes[0]:
                     if d.category_name == 'jawOpen':
                         jaw_open = d.score
                     elif d.category_name in ['eyeWideLeft', 'eyeWideRight']:
@@ -187,8 +239,8 @@ def main(privacy=False):
                 cv2.imshow('Webcam Feed', annotated_image)
             
             # Might fail in case of extreme occlusion etc, just ignore the frame
-            except:
-                print("NO LANDMARKS DETECTED")
+            except Exception as e:
+                print(f"NO LANDMARKS DETECTED : {e}")
             
             # Break the loop when 'q' is pressed
             if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -198,12 +250,10 @@ def main(privacy=False):
         cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    # If set to True, only the detected landmarks will be displayed instead of the entire webcam feed 
-    USE_PRIVACY_MODE = False
-    main(privacy=USE_PRIVACY_MODE)
+    main(privacy=False)
 ```
 
-That's pretty much it. If I'm not lazy I'll package it into an app and add a simple frontend and maybe more options and landmarks. 
+That's pretty much it. If I'm not lazy I'll package it into an app and add a simple frontend and maybe more options. 
 <br>
 <br>
 Happy soyjacking !!!
