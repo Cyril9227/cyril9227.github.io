@@ -1,13 +1,16 @@
 ---
 title: "Trading Crap"
 date: 2024-10-05 08:00:00 +00:00
-tags: [coding, trading]
+tags: [coding, trading, finance]
 toc: false
 ---
 
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bridgewater (4% returns) vs index funds (18%).<br><br>I&#39;m not saying you can&#39;t beat the market. <br><br>But Bridgewater is a hedge fund with 2,000 employees. Some of the smartest, highest paid people on earth who spend 20 hours a day + billions on tools/research.<br><br>And they, and many just… <a href="https://t.co/YKLzZaikbb">pic.twitter.com/YKLzZaikbb</a></p>&mdash; Sam Parr (@thesamparr) <a href="https://twitter.com/thesamparr/status/1843273838546800990?ref_src=twsrc%5Etfw">October 7, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I've seen this tweet recently comparing some hedge fund and a passive index fund returns, besides missing the point of what hedge funds are for (hedging downside risk while *trying* to keep up or beat the market), I feel it's a good excuse to learn some basic risk management and indicators, arguably more important than your PnL.
+I've seen this tweet recently comparing returns of some hedge fund and a passive index fund, besides missing the point of what hedge funds are for (hedging downside risk while *trying* to keep up or beat the market), I feel it's a good excuse to learn some basic risk management and indicators, arguably more important than your PnL.
 
 ## Data stuff
 
@@ -17,10 +20,11 @@ Just pull some trading data from your favorite exchange, the formating should be
 import pandas as pd
 from datetime import datetime, timedelta
 
-# Load the data and get relevant trades over the last month 
+# Load the data
 trade_history = pd.read_csv("trade_history.csv")
 # Make sure the time column is a datetime object
 trade_history['time'] = pd.to_datetime(trade_history['time'], format='%m/%d/%Y - %H:%M:%S')
+# Only keep the last month of trading
 trade_history = trade_history[(trade_history['time'] >= (datetime.now() - timedelta(days=30)))]
 ```
 
@@ -29,7 +33,8 @@ trade_history = trade_history[(trade_history['time'] >= (datetime.now() - timede
 <figure style="text-align: center;">
   <img src="/assets/img/trading/dataset.png" alt="data">
 </figure>
-With `time` being the timestamp of the trade, `dir` the direction of the trade (buy or sell), `px` the price, `sz` the size of the trade (number of coins), `ntl` the notional value of the trade (size * price), `fee` the fee paid for the trade which is accounted for in the `closedPnl`, your profit or loss for the given trade.
+
+With `time` being the timestamp of the trade, `coin` the symbol you're trading, `dir` the direction of the trade (buy or sell), `px` the price, `sz` the size of the trade (number of coins), `ntl` the notional value of the trade (size * price), `fee` the fee paid for the trade which is accounted for in the `closedPnl`, your profit or loss for the given trade.
 
 ## Max Drawdown
 
@@ -52,7 +57,7 @@ In this toy example, the max drawdown is 41.1 USD, which means that at some poin
 
 ## Sharpe Ratio
 
-The Sharpe ratio is a measure of risk-adjusted return, which is the average return earned in excess of the risk-free rate per unit of volatility or total risk. It's a good measure to compare different strategies or portfolios, the higher the Sharpe ratio, the better the risk-adjusted return. What this chatgpt verbiage is saying is that the sharpe ratio compares your return to something risk-free, divided by the volatility. To maximize the sharpe ratio, you want to maximize your return against the default risk-free and minimize your volatility. It makes more sense to use this ratio to compare 2 strats rather than a standalone number. <br>
+*The Sharpe ratio is a measure of risk-adjusted return, which is the average return earned in excess of the risk-free rate per unit of volatility or total risk. It's a good measure to compare different strategies or portfolios, the higher the Sharpe ratio, the better the risk-adjusted return.*<br> ^What this chatgpt verbiage is saying is that the sharpe ratio compares your return to something risk-free, divided by the volatility. To maximize the sharpe ratio, you want to maximize your return against the default risk-free and minimize your volatility. It makes more sense to use this ratio to compare 2 strats rather than a standalone number. <br>
 
 We can start by computing few useful stats : 
 
@@ -65,7 +70,6 @@ daily_size = trade_history.groupby(trade_history['time'].dt.date)['ntl'].sum()  
 daily_returns = daily_pnl / daily_size
 
 # Min - max - average - standard deviation of daily returns
-
 avg_daily_return = daily_returns.mean()
 min_daily_return = daily_returns.min()
 max_daily_return = daily_returns.max()
@@ -86,7 +90,7 @@ annual_rf_rate = 0.05
 daily_rf_rate = (1 + annual_rf_rate) ** (1/365) - 1
 ```
 
-Now we can compute the Sharpe ratio given by the epected return of the portfolio minus the risk-free rate divided by the standard deviation of the portfolio :
+Now we can compute the Sharpe ratio given by the expected return of the portfolio minus the risk-free rate returns divided by the standard deviation of the portfolio :
 
 $$ \text{Sharpe ratio} = \frac{\mathbb{E}(R_p - R_f)}{\sigma_p}$$ 
 
@@ -99,13 +103,13 @@ mean_daily_excess_return = daily_excess_returns.mean()
 # Sharpe ratio (daily)
 daily_sharpe = mean_daily_excess_return / daily_std
 
-# Annualize the sharpe ratio
+# Sharpe ratio (annualized)
 annual_sharpe = daily_sharpe * (365 ** 0.5)
 print(f"Daily sharpe : {daily_sharpe:.2f} -- Annual : {annualised_sharpe:.2f}")
 # >>> Daily sharpe : 0.48 -- Annual : 9.18
 ```
 Nb : To *annualize* the sharpe ratio, you need to multiply the daily sharpe ratio by the square root of the number of trading days in a year (365 in crypto, 252 in tradfi).<br>
 
-Here the annualized Sharpe ratio is 9.18, quite biased because of the low sample but this would mean that for each unit of risk you're taking, you're getting 9.18 units of return, which is excellent.
+Here the annualized Sharpe ratio is 9.18, quite biased because of the low sample but this would mean that for each unit of risk we took, we got 9.18 units of return, which would be excellent (if we could sustain it).
 
 
