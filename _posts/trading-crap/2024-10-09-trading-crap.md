@@ -1,6 +1,6 @@
 ---
 title: "Trading Crap"
-date: 2024-10-05 08:00:00 +00:00
+date: 2024-10-09 08:00:00 +00:00
 tags: [coding, trading, finance]
 toc: false
 ---
@@ -90,7 +90,7 @@ annual_rf_rate = 0.05
 daily_rf_rate = (1 + annual_rf_rate) ** (1/365) - 1
 ```
 
-Now we can compute the Sharpe ratio given by the expected return of the portfolio minus the risk-free rate returns divided by the standard deviation of the portfolio :
+The Sharpe ratio is then given by the expected return of the portfolio minus the risk-free rate returns divided by the standard deviation of the portfolio :
 
 $$ \text{Sharpe ratio} = \frac{\mathbb{E}(R_p - R_f)}{\sigma_p}$$ 
 
