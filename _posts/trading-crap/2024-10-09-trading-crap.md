@@ -82,6 +82,7 @@ print(f"Average daily returns : {avg_daily_return:.2%} (std : {daily_std:.2%} --
 Here we can see that we only got wins (min being just a trade fee) (yayy), with an average daily return of 3.4% and a standard deviation of 7.04%, which is a bit high but not too bad.<br>
 
 Now we need to find the risk-free rate, which is usually the return on a US treasury bond, but for simplicity I'll use $5\%$ annual as a default value (high yield savings account). Since we're working with daily returns, we need to convert this to a daily rate, which is given by the formula :<br>
+
 $$ r_{\text{daily}} = (1 + r_{\text{annual}})^{1/365} - 1$$
 
 ```python
