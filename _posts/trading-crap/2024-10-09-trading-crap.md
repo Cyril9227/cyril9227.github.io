@@ -10,7 +10,7 @@ toc: false
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Bridgewater (4% returns) vs index funds (18%).<br><br>I&#39;m not saying you can&#39;t beat the market. <br><br>But Bridgewater is a hedge fund with 2,000 employees. Some of the smartest, highest paid people on earth who spend 20 hours a day + billions on tools/research.<br><br>And they, and many just… <a href="https://t.co/YKLzZaikbb">pic.twitter.com/YKLzZaikbb</a></p>&mdash; Sam Parr (@thesamparr) <a href="https://twitter.com/thesamparr/status/1843273838546800990?ref_src=twsrc%5Etfw">October 7, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-I've seen this tweet recently comparing returns of some hedge fund and a passive index fund, besides missing the point of what hedge funds are for (hedging downside risk while *trying* to keep up or beat the market), I feel it's a good excuse to learn some basic risk management and indicators, arguably more important than your PnL.
+I've seen this tweet recently comparing returns of some hedge fund and a passive index fund, besides missing the point of what hedge funds are for (hedging downside risk while *trying* to keep up with or beat the market), I feel it's a good excuse to learn some basic risk management and indicators, arguably more important than your PnL.
 
 ## Data stuff
 
@@ -53,11 +53,11 @@ max_drawdown = trade_history['drawdown'].max()
 print(f"Max drawdown : {max_drawdown:.1f} USD")
 # >>> Max drawdown : 41.1 USD
 ```
-In this toy example, the max drawdown is 41.1 USD, which means that at some point in the last month, the portfolio was down 41.1 USD from its peak value.
+In this toy example, the max drawdown is 41.1 USD, which means that at some point in the last month, the portfolio was down 40 bucks from its peak value.
 
 ## Sharpe Ratio
 
-*The Sharpe ratio is a measure of risk-adjusted return, which is the average return earned in excess of the risk-free rate per unit of volatility or total risk. It's a good measure to compare different strategies or portfolios, the higher the Sharpe ratio, the better the risk-adjusted return.*<br> ^What this chatgpt verbiage is saying is that the sharpe ratio compares your return to something risk-free, divided by the volatility. To maximize the sharpe ratio, you want to maximize your return against the default risk-free and minimize your volatility. It makes more sense to use this ratio to compare 2 strats rather than a standalone number. <br>
+*The Sharpe ratio is a measure of risk-adjusted return, which is the average return earned in excess of the risk-free rate per unit of volatility or total risk. It's a good measure to compare different strategies or portfolios, the higher the Sharpe ratio, the better the risk-adjusted return.*<br> ^What this chatgpt verbiage is saying is that the sharpe ratio compares your return to something risk-free, divided by the volatility. To maximize the sharpe ratio, you want to maximize your return against the default risk-free and minimize your volatility (Nb : usually, it makes more sense to use this ratio to compare 2 strats rather than a standalone number). <br>
 
 We can start by computing few useful stats : 
 
@@ -81,7 +81,7 @@ print(f"Average daily returns : {avg_daily_return:.2%} (std : {daily_std:.2%} --
 
 Here we can see that we only got wins (min being just a trade fee) (yayy), with an average daily return of 3.4% and a standard deviation of 7.04%, which is a bit high but not too bad.<br>
 
-Now we need to find the risk-free rate, which is usually the return on a US treasury bond, but for simplicity I'll use $5\%$ annual as a default value (high yield savings account). Since we're working with daily returns, we need to convert this to a daily rate, which is given by the formula :
+Now we need to find the risk-free rate, which is usually the return on a US treasury bond, but for simplicity I'll use $5\%$ annual as a default value (high yield savings account). Since we're working with daily returns, we need to convert this to a daily rate, which is given by the formula :<br>
 $$ r_{\text{daily}} = (1 + r_{\text{annual}})^{1/365} - 1$$
 
 ```python
@@ -110,6 +110,6 @@ print(f"Daily sharpe : {daily_sharpe:.2f} -- Annual : {annualised_sharpe:.2f}")
 ```
 Nb : To *annualize* the sharpe ratio, you need to multiply the daily sharpe ratio by the square root of the number of trading days in a year (365 in crypto, 252 in tradfi).<br>
 
-Here the annualized Sharpe ratio is 9.18, quite biased because of the low sample but this would mean that for each unit of risk we took, we got 9.18 units of return, which would be excellent (if we could sustain it).
+Here the annualized Sharpe ratio is 9.18, quite optimistic because of the low sample (few trades over 1 month) but this would mean that for each unit of risk we took, we got 9.18 "units" of return, which would be excellent (if we could sustain it, spoilers : it's hard).
 
 
