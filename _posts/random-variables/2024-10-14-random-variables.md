@@ -48,9 +48,9 @@ $$\mathbb{E}[X] = \sum_{\omega \in \Omega} X(\{\omega\}) \cdot P(\{\omega\}) = 2
 But since we treat $$X$$ as a variable, we can also write : 
 $$
 \begin{align}
-\mathbb{E}[X] = \sum_{\omega \in \Omega} X(\{\omega\}) \cdot P(\{\omega\}) \\
-= \sum_{\omega_{1} \in \Omega_{1}} X_1(\{\omega_{1}\}) \cdot P(\{\omega_{1}\}) + \sum_{\omega_{2} \in \Omega_{2}} X_1(\{\omega_{2}\}) \cdot P(\{\omega_{2}\}) \\
-= \mathbb{E}[X_1] + \mathbb{E}[X_2] = 2.5 + 2.5 = 5
+\mathbb{E}[X] &= \sum_{\omega \in \Omega} X({\omega}) \cdot P({\omega}) \
+&= \sum_{\omega_{1} \in \Omega_{1}} X_1({\omega_{1}}) \cdot P({\omega_{1}}) + \sum_{\omega_{2} \in \Omega_{2}} X_2({\omega_{2}}) \cdot P({\omega_{2}}) \
+&= \mathbb{E}[X_1] + \mathbb{E}[X_2] = 2.5 + 2.5 = 5
 \end{align}
 $$
 
@@ -78,7 +78,7 @@ $$\mathbb{E}[X] = \sum_{x = 0}^{n} x \cdot P(X = x) = \sum_{x = 0}^{n} x \cdot \
 
 This sum is not trivial at all to compute, I'll have to think about it but long story short the answer is $$\frac{n}{2}$$.<br>
 
-Another way to look at the problem is to think of our number of heads as the result of each individual coin flip, i.e $$X = X_1 + X_2 + ... + X_n$$ where $$X_i = 1$$ if the $$i^{th}$$ coin flip is a head and $$0$$ otherwise. The expected value of $$X$$ is then the sum of the expected value of each $$X_i$$ which is $$\mathbb{E}[X_i] = 0 \times \frac{1}{2} + 1 \ times \frac{1}{2} $$ (since the probability of getting a head is $$\frac{1}{2}$$).<br> 
+Another way to look at the problem is to think of our number of heads as the result of each individual coin flip, i.e $$X = X_1 + X_2 + ... + X_n$$ where $$X_i = 1$$ if the $$i^{th}$$ coin flip is a head and $$0$$ otherwise. The expected value of $$X$$ is then the sum of the expected value of each $$X_i$$ which is $$\mathbb{E}[X_i] = 0 \times \frac{1}{2} + 1 \times \frac{1}{2} $$ (since the probability of getting a head is $$\frac{1}{2}$$).<br> 
 
 So $$\mathbb{E}[X] = \mathbb{E}[X_1] + \mathbb{E}[X_2] + ... + \mathbb{E}[X_n] = n \times \frac{1}{2} = \frac{n}{2}$$.
 
