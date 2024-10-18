@@ -5,8 +5,6 @@ tags: [maths, probability]
 toc: false
 ---
 
-https://www.youtube.com/watch?v=KQHfOZHNZ3k + exo 318 PDF llg
-
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -24,7 +22,7 @@ They're not variables in the traditional sense, like our unknown $x$ in algebra 
 ## Dice Roll
 
 Let's say we consider 2 fair four-sided dices (it's for the sake of the argument, it's like a nerd dice for dungeons and dragons). <br>
-The sample space $\Omega$ is the set of all possible outcomes, which is the cartesian product of the two dices, i.e $\Omega = \{1,2,3,4\} \times \{1,2,3,4\}$<br>
+The sample space $\Omega$ is the set of all possible outcomes, which is the cartesian product of the two dices, i.e $$\Omega = \{1,2,3,4\} \times \{1,2,3,4\}$$<br>
 
 $$
 \begin{equation}
@@ -39,7 +37,7 @@ $$
 \end{equation}
 $$
 
-What we can already say is that, since the dices are fair, each element $\omega \in \Omega$ has a probability of $\frac{1}{16}$ of happening. <br>
+What we can already say is that, since the dices are fair, each element $$\omega \in \Omega$$ has a probability of $$\frac{1}{16}$$ of happening. <br>
 
 If we consider the random variable $X$ representing the sum of the two dices, i.e $X = X_1 + X_2$ where $X_1$ and $X_2$ are the outcomes of the first and second dice respectively. The possible values of $X$ are $\{2,3,4,5,6,7,8\}$ and we have $X: \Omega \mapsto \{2,3,4,5,6,7,8\}$.<br>
 
@@ -63,7 +61,7 @@ In a way, the first formula focuses on the start of the process (all the individ
 
 ## Coin Flip
 
-We now want to find out the average number of heads in $n$ coin flips. Here the sample space would be $\Omega = \{H, T\}^n$ ($|\Omega| = 2^{n}$ !).
+We now want to find out the average number of heads in $n$ coin flips. Here the sample space would be $\Omega = \{H, T\}^n$ ($\|\Omega\| = 2^{n}$ !).
 
 Let $X$ be the random variable representing the number of heads in $n$ coin flips, possible values are $\{0, 1, 2, ..., n\}$ (never getting any heads to getting all heads).<br>
 
