@@ -1,6 +1,6 @@
 ---
 title: "Random Variables are NOT Random and NOT Variables"
-date: 2024-14-09 08:00:00 +00:00
+date: 2024-10-14 08:00:00 +00:00
 tags: [maths, probability]
 toc: false
 ---
