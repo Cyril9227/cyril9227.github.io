@@ -8,7 +8,7 @@ toc: false
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-Probabilities can be confusing and I'm still wrapping my head around some (simple) concepts. So...
+Probabilities can be confusing, and I'm still wrapping my head around some (simple) concepts. So...
 
 # Random Variables are NOT Random
 
@@ -22,7 +22,7 @@ They're not variables in the traditional sense, like our unknown $x$ in algebra 
 ## Dice Roll
 
 Let's say we consider 2 fair four-sided dices (it's for the sake of the argument, it's like a nerd dice for dungeons and dragons). <br>
-The sample space $\Omega$ is the set of all possible outcomes, which is the cartesian product of the two dices, i.e $$\Omega = \{1,2,3,4\} \times \{1,2,3,4\}$$<br>
+The sample space $\Omega$ is the set of all possible outcomes, which is the cartesian product of the two dices, i.e $$\Omega = \Omega_{1} \times \Omega_{2} = \{1,2,3,4\} \times \{1,2,3,4\}$$<br>
 
 $$
 \begin{equation}
@@ -46,7 +46,11 @@ $$\mathbb{E}[X] = \sum_{\omega \in \Omega} X(\{\omega\}) \cdot P(\{\omega\}) = 2
 (For the first $\omega = (1,1)$, $X(\{(1, 1)\}) = 1 + 1 = 2$ and $P(\{\omega\}) = \frac{1}{16}$  etc.)<br>
 
 But since we treat $X$ as a variable, we can also write : 
-$$\mathbb{E}[X] = \sum_{\omega \in \Omega} X(\{\omega\}) \cdot P(\{\omega\}) = \sum_{\omega_{1} \in \Omega_{1}} X_1(\{\omega_{1}\}) \cdot P(\{\omega_{1}\}) + \sum_{\omega_{2} \in \Omega_{2}} X_1(\{\omega_{2}\}) \cdot P(\{\omega_{2}\}) = \mathbb{E}[X_1] + \mathbb{E}[X_2] = 2.5 + 2.5 = 5$$
+$$
+\mathbb{E}[X] = \sum_{\omega \in \Omega} X(\{\omega\}) \cdot P(\{\omega\}) \\
+= \sum_{\omega_{1} \in \Omega_{1}} X_1(\{\omega_{1}\}) \cdot P(\{\omega_{1}\}) + \sum_{\omega_{2} \in \Omega_{2}} X_1(\{\omega_{2}\}) \cdot P(\{\omega_{2}\}) \\
+= \mathbb{E}[X_1] + \mathbb{E}[X_2] = 2.5 + 2.5 = 5
+$$
 
 (Not being super rigorous here but we have $\Omega = \Omega_1 \times \Omega_2$ i.e $\omega = (\omega_1, \omega_2)$ with $\Omega_1 = \Omega_2 = \{1,2,3,4\}$ the respective sample spaces of each dice)<br>
 
