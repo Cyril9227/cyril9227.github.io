@@ -50,7 +50,7 @@ $$
 \begin{align}
 \mathbb{E}[X] &= \sum_{\omega \in \Omega} X({\omega}) \cdot P({\omega}) \\
 &= \sum_{\omega_{1} \in \Omega_{1}} X_1({\omega_{1}}) \cdot P({\omega_{1}}) + \sum_{\omega_{2} \in \Omega_{2}} X_2({\omega_{2}}) \cdot P({\omega_{2}}) \\
-&= \mathbb{E}[X_1] + \mathbb{E}[X_2] 
+&= \mathbb{E}[X_1] + \mathbb{E}[X_2] \\
 &= 2.5 + 2.5 \\
 &= 5 \\
 \end{align}
