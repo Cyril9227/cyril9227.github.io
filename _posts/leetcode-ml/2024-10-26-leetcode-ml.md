@@ -33,8 +33,6 @@ A friend found this nice website <a href="https://www.deep-ml.com/">deep-ml/</a>
 
 Write a Python function that takes the dot product of a matrix and a vector. return -1 if the matrix could not be dotted with the vector
 
-<details>
- <summary><strong>💡 Solution</strong></summary>
 
 ```python
 
@@ -67,16 +65,12 @@ dot_prod = [row @ b for row in a]
 
 - The @ operator
 
-</details>
 
 <hr>
 
 ## Transpose of a Matrix
 
 Write a Python function that computes the transpose of a given matrix.
-
-<details>
- <summary><strong>💡 Solution</strong></summary>
 
 
 ```python
@@ -113,17 +107,11 @@ transposed = a.T
 
 - Pretty clever use of `zip` and `*` to transpose a matrix
 
-
-</details>
-
 <hr>
 
 ## Covariance Matrice
 
 Write a Python function that calculates the covariance matrix from a list of vectors. Assume that the input list represents a dataset where each vector is a feature, and vectors are of equal length.
-
-<details>
- <summary><strong>💡 Solution</strong></summary>
 
 
 A bit of a mindfuck because the inputs are not in the usual ML format. Here we consider a list of $F$ features, each having $N$ samples. <br> For instance : 
@@ -173,8 +161,6 @@ np.cov(vectors, rowvar=true)
 - The covariance matrix is positive semi-definite by construction of the inner product $XX^{T}$ (all its eigenvalues are non-negative) <br>
 - Used plenty in PCA (and other dimensionality reduction techniques), in finance (assets correlation / portfolio optimization) etc.
 
-
-</details>
 
 <hr>
 
