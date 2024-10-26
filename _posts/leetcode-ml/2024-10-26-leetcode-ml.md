@@ -78,6 +78,7 @@ Write a Python function that computes the transpose of a given matrix.
 <details>
  <summary><strong>💡 Solution</strong></summary>
 
+
 ```python
 
 def transpose_matrix(a: list[list[int|float]]) -> list[list[int|float]]:
@@ -112,6 +113,7 @@ transposed = a.T
 
 - Pretty clever use of `zip` and `*` to transpose a matrix
 
+
 </details>
 
 <hr>
@@ -122,6 +124,7 @@ Write a Python function that calculates the covariance matrix from a list of vec
 
 <details>
  <summary><strong>💡 Solution</strong></summary>
+
 
 A bit of a mindfuck because the inputs are not in the usual ML format. Here we consider a list of $F$ features, each having $N$ samples. <br> For instance : 
 
@@ -169,6 +172,8 @@ np.cov(vectors, rowvar=true)
 - The covariance matrix is symmetric (because the covariance between $i$ and $j$ is the same as the covariance between $j$ and $i$).<br>
 - The covariance matrix is positive semi-definite by construction of the inner product $XX^{T}$ (all its eigenvalues are non-negative) <br>
 - Used plenty in PCA (and other dimensionality reduction techniques), in finance (assets correlation / portfolio optimization) etc.
+
+
 </details>
 
 <hr>
