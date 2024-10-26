@@ -49,11 +49,13 @@ def matrix_dot_vector(a:list[list[int|float]], b:list[int|float])-> list[int|flo
             s+= c_row * b_i
         dot_prod.append(s)
     return dot_prod
+
 ```
 
 If we assume that $a$ and $b$ are NumPy arrays, we have a dedicated operator for this : 
 
 ```python
+
 # Matrix a and vector b
 dot_prod = a @ b
 
@@ -77,6 +79,7 @@ Write a Python function that computes the transpose of a given matrix.
  <summary><strong>💡 Solution</strong></summary>
 
 ```python
+
 def transpose_matrix(a: list[list[int|float]]) -> list[list[int|float]]:
     b = []
     for i in range(len(a[0])):
@@ -90,6 +93,7 @@ def transpose_matrix(a: list[list[int|float]]) -> list[list[int|float]]:
 Actually there is a neat pythonic way to do this using the `zip` function : 
 
 ```python
+
 transposed = list(zip(*a))
 ```
 
@@ -99,6 +103,7 @@ transposed = list(zip(*a))
 If we assume that $a$ is a NumPy array :  
 
 ```python
+
 # Matrix a and vector b
 transposed = a.T
 ```
@@ -118,7 +123,7 @@ Write a Python function that calculates the covariance matrix from a list of vec
 <details>
  <summary><strong>💡 Solution</strong></summary>
 
-A bit of a mindfuck because the inputs are not in the usual format. Here we consider a list of $F$ features, each having $N$ samples. <br> For instance : 
+A bit of a mindfuck because the inputs are not in the usual ML format. Here we consider a list of $F$ features, each having $N$ samples. <br> For instance : 
 
 $$
 M = 
@@ -133,6 +138,7 @@ $$
 In that case, the covariance matrix can be *estimated* as $\frac{1}{N - 1} MM^{T}$, where $M$ is a centered data matrix
 
 ```python
+
 import numpy as np
 def calculate_covariance_matrix(vectors: list[list[float]]) -> list[list[float]]:
 	vectors = np.array(vectors)
@@ -147,9 +153,11 @@ def calculate_covariance_matrix(vectors: list[list[float]]) -> list[list[float]]
 	covariance_matrix = (vectors @ vectors.T) / (N - 1)
 	return covariance_matrix.tolist()
 ```
+
 NumPy :<br>
 ```python
-np.cov(vectors, rowvar=False)  # rowvar=False because of the format of the input
+# rowvar=True because each row is a feature, usually in ML each column is a feature and each row a sample..
+np.cov(vectors, rowvar=true)  
 ```
 <br>
 
