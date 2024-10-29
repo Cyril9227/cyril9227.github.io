@@ -80,10 +80,10 @@ $$\mathbb{E}[X] = \sum_{x = 0}^{n} x \cdot P(X = x) = \sum_{x = 0}^{n} x \cdot \
 
 This sum is not trivial at all to compute, I'll have to think about it but long story short the answer is $$\frac{n}{2}$$.<br><br>
 
-EDIT: I thought a bit about it and here is the full derivation
-$$\mathbb{E}[X] = \left(\frac{1}{2}\right)^{n} \cdot \sum_{x = 0}^{n} x \cdot \binom{n}{x}$$<br>
+EDIT: I thought a bit about it and here is the full derivation for 
+$$\mathbb{E}[X] = \left(\frac{1}{2}\right)^{n} \cdot \sum_{k = 0}^{n} k \cdot \binom{n}{k}$$<br>
 To compute $$\sum_{x = 0}^{n} x \cdot \binom{n}{x}$$, we can just remark that it awfully looks like the derivative of $$x^{k}$$...<br>
-We have by the binomial theorem that $$(1 + x)^{n} = \sum_{k = 0}^{n} \binom{n}{k}x^{k}$$, if we derive both sides with respect to $x$, we get :<br>
+We have by the binomial theorem that $$(1 + x)^{n} = \sum_{k = 0}^{n} \binom{n}{k}x^{k}$$, if we derive both sides with respect to $$x$$, we get :<br>
 $$n \cdot (1 + x)^{n-1} = \sum_{k = 0}^{n} k \cdot \binom{n}{k}x^{k-1}$$<br>
 Evaluating this at $$x = 1$$ gives us $$n \cdot 2^{n-1} = \sum_{k = 0}^{n} k \cdot \binom{n}{k}$$<br>
 Now we can plug this back into our expected value formula to get $$\mathbb{E}[X] = \left(\frac{1}{2}\right)^{n} \cdot n \cdot 2^{n-1} = \frac{n}{2}$$
