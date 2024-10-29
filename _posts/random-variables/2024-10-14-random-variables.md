@@ -78,7 +78,15 @@ If we think a bit, we have $$2^{n}$$ possible sequences of heads and tails, so g
 The expected value of $$X$$ is then :
 $$\mathbb{E}[X] = \sum_{x = 0}^{n} x \cdot P(X = x) = \sum_{x = 0}^{n} x \cdot \binom{n}{x} \cdot \left(\frac{1}{2}\right)^{n}$$
 
-This sum is not trivial at all to compute, I'll have to think about it but long story short the answer is $$\frac{n}{2}$$.<br>
+This sum is not trivial at all to compute, I'll have to think about it but long story short the answer is $$\frac{n}{2}$$.<br><br>
+
+EDIT: I thought a bit about it and here is the full derivation
+$$\mathbb{E}[X] = \left(\frac{1}{2}\right)^{n} \cdot \sum_{x = 0}^{n} x \cdot \binom{n}{x}$$<br>
+To compute $$\sum_{x = 0}^{n} x \cdot \binom{n}{x}$$, we can just remark that it awfully looks like the derivative of $$x^{k}$$...<br>
+We have by the binomial theorem that $$(1 + x)^{n} = \sum_{k = 0}^{n} \binom{n}{k}x^{k}$$, if we derive both sides with respect to $x$, we get :<br>
+$$n \cdot (1 + x)^{n-1} = \sum_{k = 0}^{n} k \cdot \binom{n}{k}x^{k-1}$$<br>
+Evaluating this at $$x = 1$$ gives us $$n \cdot 2^{n-1} = \sum_{k = 0}^{n} k \cdot \binom{n}{k}$$<br>
+Now we can plug this back into our expected value formula to get $$\mathbb{E}[X] = \left(\frac{1}{2}\right)^{n} \cdot n \cdot 2^{n-1} = \frac{n}{2}$$
 
 Another way to look at the problem is to think of our number of heads as the result of each individual coin flip, i.e $$X = X_1 + X_2 + ... + X_n$$ where $$X_i = 1$$ if the $$i^{th}$$ coin flip is a head and $$0$$ otherwise. The expected value of $$X$$ is then the sum of the expected value of each $$X_i$$ which is $$\mathbb{E}[X_i] = 0 \times \frac{1}{2} + 1 \times \frac{1}{2} $$ (since the probability of getting a head is $$\frac{1}{2}$$).<br> 
 
