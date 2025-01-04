@@ -173,6 +173,7 @@ def chunk_text(text, max_tokens=4000):
 For the actual cleaning of the chunks, I thought of actually using chatGPT itself to ensure that the input to the summary task is as clean as possible. It has some trade-off of course, we're using one extra API call per chunk (cost + time) and we might also introduce hallucinations (although recent models are really good now) but we should be getting a much higher quality input for the model later on<br>
 
 ```python
+# pip install openai
 def cleanup_chunk(client, chunk):
     """Using the LLM to directly cleanup each chunk, much better results than regex/code based cleanup."""
     try:
@@ -281,4 +282,5 @@ Result :
     <li>Handle rate limit error with breakoff lib or similar</li>
     <li>Build an app or web interface to use the script</li>
     <li>Push full code</li>
+    <li>Play with the prompts to make summaries more concise + formatting</li>
 </ol>
