@@ -16,14 +16,14 @@ I don't think it's that hard to build so let's try
 - Use chatGPT to summarize each chunk
 - Collate the chunks into a final summary and voila
 
-The whole script is available at : TODO
+The whole script and an example output are available here : <a href="https://github.com/Cyril9227/YoutubeSummary">https://github.com/Cyril9227/YoutubeSummary</a>
 
 
 ### Getting the transcript
 
 Fortunately, everything exists in python. <br>
 
-First some quick regex to extract the <i>video_id</i> from the YouTube URL:
+First some quick regex to extract the `video_id` from the YouTube URL:
 
 ```python
 import re
